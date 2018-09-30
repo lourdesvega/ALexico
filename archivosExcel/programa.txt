@@ -1,0 +1,21 @@
+Clase a:
+Metodo b(Entero n):
+Entero num=10+2+4+78+7+(4+(4+(2+(1+(4+(4+5)+8)+8)+7)+7)+7)
+a=2.2
+Si(num<10 && a>4.7):
+Para(i=1;i<10;i=i+1):
+Si(i<2):
+:
+:
+:
+:
+
+Metodo c():
+Llamar b(Entero n)
+:
+:
+
+
+
+
+
