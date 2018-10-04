@@ -21,7 +21,7 @@ public class Postfijo {
 
         //Depurar la expresion algebraica
         //String expr = "((((a   *  b   *    c  /  d  +  a ) > ( b - c - d  ) ||( a -5 *3 ) > ( b -d * f) && b > f )))";
-        String expr="z=a+b/c-d*b+a-5.4*3";
+        String expr="(a>b && b<c)||(d<f && g<h)";
        //String expr="z=a>b||b>c)||b<(5+4*c/d)";
        int a=1,b=2,c=3,d=4;
        //boolean z=((a>b||b>c)||b<(5+4*c/d));
@@ -163,5 +163,6 @@ public class Postfijo {
         }
         return prf;
     }
+    //bcbpublic static int temo ()
 
 }
