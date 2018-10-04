@@ -10,20 +10,21 @@ package CodigoIntermedio;
  * @author lourd
  */
 public class Etiquetas {
+    public Etiquetas(){
+        
+    }
 
-    public Etiquetas(int nuevaEtiqueta, int inicio, int ETrue, int EFalse, int E1True, int E1false, int E2True, int E3false) {
+    public Etiquetas(int nuevaEtiqueta, int inicio, int ETrue, int EFalse, int E1True, int E1false ){
         this.nuevaEtiqueta = nuevaEtiqueta;
         this.inicio = inicio;
         this.ETrue = ETrue;
         this.EFalse = EFalse;
         this.E1True = E1True;
         this.E1false = E1false;
-        this.E2True = E2True;
-        this.E3false = E3false;
     }
 
     public int getNuevaEtiqueta() {
-        return nuevaEtiqueta;
+        return nuevaEtiqueta+10;
     }
 
     public void setNuevaEtiqueta(int nuevaEtiqueta) {
@@ -70,28 +71,12 @@ public class Etiquetas {
         this.E1false = E1false;
     }
 
-    public int getE2True() {
-        return E2True;
-    }
 
-    public void setE2True(int E2True) {
-        this.E2True = E2True;
-    }
 
-    public int getE3false() {
-        return E3false;
-    }
-
-    public void setE3false(int E3false) {
-        this.E3false = E3false;
-    }
-
-    private int nuevaEtiqueta;
+    private int nuevaEtiqueta=0;
     private int inicio;
     private int ETrue;
     private int EFalse;    
     private int E1True;
     private int E1false;
-    private int E2True;
-    private int E3false;
 }

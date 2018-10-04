@@ -27,7 +27,7 @@ public class Intermedio {
                case("&&"):
                    e=new Etiquetas();
                    e.setE1True(e.getNuevaEtiqueta());
-                   e. 
+                   
                break;
            }
        }
