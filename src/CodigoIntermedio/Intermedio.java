@@ -14,20 +14,34 @@ import java.util.Stack;
 public class Intermedio {
     static int etiqueta=0;
 
-   static Etiquetas e;
+   static Etiquetas nueva;
+   static Etiquetas anterior;
     
     
     
     
-    public static void rutina(Stack< String> Pila){
+    public static void rutina(Stack< String> Pila, Etiquetas principal){
        Stack pila =new Stack();
+       pila.push(principal);
+       anterior=principal;
        
        while(!Pila.empty()){
+           
            switch(Pila.peek()){
                case("&&"):
-                   e=new Etiquetas();
-                   e.setE1True(e.getNuevaEtiqueta());
+                   nueva=new Etiquetas();                   pila.get(etiqueta);
+                   nueva.setE1True(anterior.getNuevaEtiqueta());
+                   nueva.setE1false(anterior.getE1false());
+                   nueva.setE2True(anterior.getE1True());
+                   nueva.setE2false(anterior.getE1false());
+                   anterior=nueva;
+                   pila.push(nueva);
+                   //B.Codigo=B1.Codigo
+                   System.out.println(nueva.getE1True());
+                   //B2.Codigo
+                   Pila.pop();
                    
+                   //e.setE1false();
                break;
            }
        }
