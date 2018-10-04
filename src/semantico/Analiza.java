@@ -16,7 +16,8 @@ import static semantico.Expresion.postfijo;
  */
 public class Analiza
 {
-
+    static int numEtiqueta = 0;
+    
     public static ArrayList analizador(String sSemantica, String[] sSemantica11, String[] sSemantica1Tokens, ArrayList tablaErrores, ArrayList tabladetablas, ArrayList tabladetablasresultado)
     {
         String junto[][] = new String[2][];
@@ -63,6 +64,9 @@ public class Analiza
                     }
                     break;
                 case "T12"://SI
+                    // Código Intermedio.
+                    codigoIntermedioSent("T12",etiquetas,numEtiqueta);
+                    
                     gramatica.Gramatica.tablaTablas.add(nuevo);
                     String condicionsi[] = new String[sSemantica11.length-1];
                     String condicionTokensi[] =new String[sSemantica1Tokens.length-1] ;
@@ -653,5 +657,58 @@ public class Analiza
         }
         return re;
     }
-
+    
+    public static void codigoIntermedioSent(String token, String[][] etiquetas, int numEtiqueta) {
+        switch(token){
+            case "T12":
+                numEtiqueta = nuevaEtiqueta(numEtiqueta);
+                etiquetas = verificarEtiq("B.True", etiquetas, numEtiqueta);
+                numEtiqueta = nuevaEtiqueta(numEtiqueta);
+                etiquetas = verificarEtiq("B.False", etiquetas, numEtiqueta);
+                mostrarEtiquetas(etiquetas);
+                break;
+            case "T13":
+                
+                break;
+            case "T14":
+                
+                break;
+            default: System.out.println("Error al entrar código intermedio.");
+                break;
+        }
+    }
+    
+    public static String[][] verificarEtiq(String etiqueta, String[][] etiquetas, int numEtiqueta) {
+        for (int i = 0; i < etiquetas.length; i++) {
+            if (etiquetas[i][0] != null) {
+                if (etiquetas[i][0].equals(etiqueta)) {
+                    for (int j = 0; j < etiquetas[i].length; j++) {
+                        if (etiquetas[i][j] == null) {
+                            etiquetas[i][j] = String.valueOf(numEtiqueta);
+                            return etiquetas;
+                        }
+                    }
+                }
+            } else {
+                etiquetas[i][0] = etiqueta;
+                etiquetas[i][1] = String.valueOf(numEtiqueta);
+                return etiquetas;
+            }
+        }
+        return etiquetas;
+    }
+    
+    public static int nuevaEtiqueta(int actual) {
+        actual = actual + 10;
+        return actual;
+    }
+    
+    public static void mostrarEtiquetas(String[][] etiquetas) {
+        for (int i = 0; i < etiquetas.length; i++) {
+            for (int j = 0; j < etiquetas[i].length; j++) {
+                System.out.print(etiquetas[i][j] + "\t");
+            }
+            System.out.println("");
+        }
+    }
 }
