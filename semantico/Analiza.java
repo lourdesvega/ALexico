@@ -58,6 +58,7 @@ public class Analiza
                     codigoIntermedioSent("T12",etiquetas,numEtiqueta);
                     
                     sent = eliminaSent(sSemantica.replace(" ",""), "Si");
+                    System.out.println("Expresión resultante: " + sent);
                     break;
                 case "T14":
                     sent = eliminaSent(sSemantica.replace(" ",""), "Para");
@@ -96,6 +97,7 @@ public class Analiza
         {
             case "Entero":
                 tipo1 = "T51";
+                break;
             case "Flotante":
                 tipo1 = "T52";
                 break;
