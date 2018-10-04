@@ -14,12 +14,13 @@ public class Etiquetas {
         
     }
 
-    public Etiquetas(int inicio, int E1True, int E1false, int E2True, int E2false) {
+    public Etiquetas(int inicio, int E1True, int E1false, int E2True, int E2false, int sSig) {
         this.inicio = inicio;
         this.E1True = E1True;
         this.E1false = E1false;
         this.E2True = E2True;
         this.E2false = E2false;
+        this.sSig = sSig;
     }
 
     public int getNuevaEtiqueta() {
@@ -69,7 +70,14 @@ public class Etiquetas {
     public void setE2false(int E2false) {
         this.E2false = E2false;
     }
+    
+    public int getSSig() {
+        return sSig;
+    }
 
+    public void setSSig(int sSig) {
+        this.sSig = sSig;
+    }
 
     private int nuevaEtiqueta;
     private int inicio;  
@@ -77,4 +85,5 @@ public class Etiquetas {
     private int E1false;
     private int E2True;
     private int E2false;
+    private int sSig;
 }
