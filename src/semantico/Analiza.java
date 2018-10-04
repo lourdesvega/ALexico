@@ -7,6 +7,8 @@ package semantico;
 
 import java.util.ArrayList;
 import java.util.Stack;
+import static semantico.Expresion.exp;
+import static semantico.Expresion.postfijo;
 
 /**
  *
@@ -14,10 +16,8 @@ import java.util.Stack;
  */
 public class Analiza
 {
-    static String[][] etiquetas = new String[5][5]; 
-    static int numEtiqueta = 0;
-    
-    public static String[][][] analizador(String[][] tablaVarianles, String sSemantica, String[] sSemantica11, String[] sSemantica1Tokens, String[][] tablaErrores)
+
+    public static ArrayList analizador(String sSemantica, String[] sSemantica11, String[] sSemantica1Tokens, ArrayList tablaErrores, ArrayList tabladetablas, ArrayList tabladetablasresultado)
     {
         String junto[][] = new String[2][];
         junto[0] = sSemantica11;
@@ -31,70 +31,153 @@ public class Analiza
             junto[0][0] = "";
 
             String vector1[] = creaVector(junto[0][1], tipo, "");
-            vector1[4] = TablaS.tablaSimbolosDeclara(tablaVarianles, vector1,tablaErrores);
-            tablaVarianles = creaTabla(tablaVarianles, vector1);
+            vector1[4] = TablaS.tablaSimbolosDeclara(tabladetablas, vector1, tablaErrores);
+            tabladetablas = creaTabla(tabladetablas, vector1);
             Object pilas[] = analizaPos(junto[0], junto[1]);
             if (pilas != null)
             {
                 System.out.println(((Stack<String>) pilas[0]).size());
-                String tab[][][] = analizaPila(tablaVarianles, (Stack<String>) pilas[0], (Stack<String>) pilas[1], tablaErrores);
+                ArrayList tab = analizaPila(tabladetablas, (Stack<String>) pilas[0], (Stack<String>) pilas[1], tablaErrores);
 
-                tablaVarianles = tab[0];
-                tablaErrores = tab[1];
+                tabladetablas = (ArrayList) tab.get(0);
+                //tablaErrores = (ArrayList) tab.get(1);
             }
-           
+
         } else
         {
             String sent;
+            Object pilas[];
+            ArrayList nuevo = new ArrayList();
             switch (sSemantica1Tokens[0].trim())
             {
+
                 case "T50":
-                    Object pilas[] = analizaPos(junto[0], junto[1]);
+                    pilas = analizaPos(junto[0], junto[1]);
                     if (pilas != null)
                     {
-                        String tab[][][] = analizaPila(tablaVarianles, (Stack<String>) pilas[0], (Stack<String>) pilas[1], tablaErrores);
+//                        System.out.println(((Stack<String>) pilas[0]).size());
+                        ArrayList tab = analizaPila(tabladetablas, (Stack<String>) pilas[0], (Stack<String>) pilas[1], tablaErrores);
 
-                        tablaVarianles = tab[0];
-                        tablaErrores = tab[1];
+                        //tab.add(tabladetablas);
+                        //tab.add(tablaErrores);
                     }
                     break;
-                case "T12":
-                    // Código Intermedio.
-                    codigoIntermedioSent("T12",etiquetas,numEtiqueta);
+                case "T12"://SI
+                    gramatica.Gramatica.tablaTablas.add(nuevo);
+                    String condicionsi[] = new String[sSemantica11.length-1];
+                    String condicionTokensi[] =new String[sSemantica1Tokens.length-1] ;
+                    System.arraycopy(sSemantica11, 1, condicionsi,0,condicionsi.length );
+                     System.arraycopy(sSemantica1Tokens, 1, condicionTokensi,0,condicionsi.length );
+
                     
-                    sent = eliminaSent(sSemantica.replace(" ",""), "Si");
-                    System.out.println("Expresión resultante: " + sent);
+                    
+                    //String[] sSemantica11, String[] sSemantica1Tokens;
+                    PilasE[] p1 = postfijo(condicionsi, condicionTokensi);
+                    //for()
+                    //mostrarPila1(p1);
+                    Stack<String> pp = transformar(p1[0]);
+                    Stack<String> pp1 = transformar(p1[1]);
+                    //System.out.println("jdshd: "+pp);
+                    //System.out.println("jdgsd: "+pp1);
+
+                    //pilas = analizaPos(condicion, condicionToken);
+                    analizaPila(tabladetablas, (Stack<String>) pp, (Stack<String>) pp1, tablaErrores);
+
+//ArrayList tab = analizaPila(tabladetablas, (Stack<String>) pilas[0], (Stack<String>) pilas[1], tablaErrores);
+                    // sent = eliminaSent(sSemantica.replace(" ",""), "Si");
+                    //System.out.println("Expresión resultante: " + sent);
                     break;
-                case "T14":
-                    sent = eliminaSent(sSemantica.replace(" ",""), "Para");
-                    String res[] = separaExpDeSent(sent);
-                    System.out.println("Expresión resultante: ");
-                    for (int i = 0; i < res.length; i++) {
-                        System.out.println(i+1 + ": " + res[i]);
-                    }
+                case "T14"://PARA
+                    gramatica.Gramatica.tablaTablas.add(nuevo);
+                    ArrayList pa = para(sSemantica11, sSemantica1Tokens);
+
+                    String asigna1[] = (String[]) pa.get(0);
+                    String asigna1Token[] = (String[]) pa.get(1);
+                    pilas = analizaPos(asigna1, asigna1Token);
+                    analizaPila(tabladetablas, (Stack<String>) pilas[0], (Stack<String>) pilas[1], tablaErrores);
+
+                    String condicion[] = (String[]) pa.get(2);
+                    String condicionToken[] = (String[]) pa.get(3);
+
+                    PilasE[] ppp1 = postfijo(condicion, condicionToken);
+                    //mostrarPila1(p1);
+                    Stack<String> ppp = transformar(ppp1[0]);
+                    Stack<String> pj1 = transformar(ppp1[1]);
+                    //System.out.println("jdshd: "+ppp);
+                    //System.out.println("jdgsd: "+pj1);
+
+                    //pilas = analizaPos(condicion, condicionToken);
+                    analizaPila(tabladetablas, (Stack<String>) ppp, (Stack<String>) pj1, tablaErrores);
+
+                    String asigna2[] = (String[]) pa.get(4);
+                    String asigna2Token[] = (String[]) pa.get(5);
+
+                    pilas = analizaPos(asigna2, asigna2Token);
+                    analizaPila(tabladetablas, (Stack<String>) pilas[0], (Stack<String>) pilas[1], tablaErrores);
+
                     break;
-                case "Mientras":
-                    sent = eliminaSent(sSemantica.replace(" ",""), "Mientras");
-                    System.out.println("Expresión resultante: " + sent);
+                case "T15"://mientras
+                    gramatica.Gramatica.tablaTablas.add(nuevo);
+                     String condicionmi[] = new String[sSemantica11.length-1];
+                    String condicionTokemi[] =new String[sSemantica1Tokens.length-1] ;
+                    System.arraycopy(sSemantica11, 1, condicionmi,0,condicionmi.length );
+                     System.arraycopy(sSemantica1Tokens, 1, condicionTokemi,0,condicionmi.length );
+    
+                    
+                    
+                      PilasE[] pmientras= postfijo(condicionmi, condicionTokemi);
+                    //mostrarPila1(p1);
+                    Stack<String> pm = transformar(pmientras[0]);
+                    Stack<String> pm1 = transformar(pmientras[1]);
+
+                    //pilas = analizaPos(condicion, condicionToken);
+                    analizaPila(tabladetablas, (Stack<String>) pm, (Stack<String>) pm1, tablaErrores);
+
                     break;
-                case "Sino":
+                case "T13"://SINO
+
+                    gramatica.Gramatica.tablaTablas.add(nuevo);
+
                     break;
-                case "Entra":
-                    sent = eliminaSent(sSemantica.replace(" ",""), "Entra");
-                    System.out.println("Expresión resultante: " + sent);
+                case "T17"://ENTRA
+                    gramatica.Gramatica.tablaTablas.add(nuevo);
+
+                    //sent = eliminaSent(sSemantica.replace(" ",""), "Entro");
+                    //System.out.println("Expresión resultante: " + sent);
                     break;
+                case "T20"://CLASE
+
+                    //verificar clase
+                    gramatica.Gramatica.tablaTablas.add(nuevo);
+                    clases(sSemantica11, sSemantica1Tokens);
+                    break;
+                case "T18"://caso
+                    gramatica.Gramatica.tablaTablas.add(nuevo);
+
+                    break;
+                case "T23"://Metodo
+                    //verificar metodo
+
+                    metodos(sSemantica11, sSemantica1Tokens);
+                    gramatica.Gramatica.tablaTablas.add(nuevo);
+
+                    metodosparametros(sSemantica11, sSemantica1Tokens);
+
+                    break;
+
             }
             System.out.println("No entra 2");
 
         }
         // tablaVarianles = creaTabla(tablaVarianles, sSemantica11);
-        String[][][] tabladetablas = new String[3][][];
-        tabladetablas[0] = tablaVarianles;
-        tabladetablas[1] = tablaErrores;
 
-        return tabladetablas;
+        ArrayList tab = new ArrayList();
+        //tab.add(tabladetablas);
+        //  tab.add(tablaErrores);
+
+        return tab;
     }
-    
+
     public static String[] creaVector(String nuevo, String tipo, String error)
     {
         String tipo1 = "";
@@ -120,32 +203,17 @@ public class Analiza
         return vector;
     }
 
-    public static String[][] creaTabla(String[][] matriz, String[] nuevo)
+    public static ArrayList creaTabla(ArrayList tablatablas, String[] nuevo)
     {
+
         if (nuevo != null)
         {
-            if (matriz == null)
-            {
 
-                String nuevaM[][] = new String[1][];
-                nuevaM[0] = nuevo;
+            ArrayList a = (ArrayList) tablatablas.get(tablatablas.size() - 1);
+            a.add(nuevo);
 
-                return nuevaM;
-            } else
-            {
-                String nuevaM[][] = new String[matriz.length + 1][];
-                for (int i = 0; i < matriz.length; i++)
-                {
-                    nuevaM[i] = matriz[i];
-
-                }
-                nuevaM[matriz.length] = nuevo;
-
-                return nuevaM;
-
-            }
         }
-        return matriz;
+        return tablatablas;
     }
 
     public static boolean compara(String a)
@@ -199,13 +267,13 @@ public class Analiza
             re[1] = st1;
         }
         //ast.add(s)
-        System.out.println("hgfghjk");
+        // System.out.println("hgfghjk");
         //String pila[]=TablaS.separador(s);
 
         return re;
     }
 
-    public static String[][][] analizaPila(String[][] tablaSimbolos, Stack<String> p1, Stack<String> p2, String[][] tablaErrores)
+    public static ArrayList analizaPila(ArrayList tablaTablas, Stack<String> p1, Stack<String> p2, ArrayList tablaErrores)
     {
         if (p1 != null && p2 != null)
         {
@@ -236,9 +304,32 @@ public class Analiza
 
                 //re.remove(0);
                 //re2.remove(0);
-                if (re2.contains("T2"))
+                if (re2.contains("T2") || re2.contains("T3") || re2.contains("T4"))
                 {
                     int a = re2.indexOf("T2");
+                    for (int i = 0; i < re2.size(); i++)
+                    {
+                        if (((String) re2.get(i)).trim().equals("T2"))
+                        {
+                            a = re2.indexOf("T2");
+
+                            break;
+                        }
+                        if (((String) re2.get(i)).trim().equals("T3"))
+                        {
+
+                            a = re2.indexOf("T3");
+                            break;
+
+                        }
+                        if (((String) re2.get(i)).trim().equals("T4"))
+                        {
+                            a = re2.indexOf("T4");
+                            break;
+
+                        }
+
+                    }
 
                     String compra1token = re2.get(a - 1) + "";
                     String compra2token = re2.get(a - 2) + "";
@@ -248,8 +339,8 @@ public class Analiza
 
                     if (compra1token.equals("T50") || compra2token.equals("T50"))
                     {
-                        String tokencomp = compra1;
-                        String tokencomp2 = compra2;
+                        String tokencomp = compra1token;
+                        String tokencomp2 = compra2token;
                         String comp = compra1;
                         String comp2 = compra2;
 
@@ -258,7 +349,7 @@ public class Analiza
 
                         if (compra1token.equals("T50"))
                         {
-                            bus1 = TablaS.busca(tablaSimbolos, compra1,tablaErrores);
+                            bus1 = TablaS.buscaArray(tablaTablas, compra1, tablaErrores);
 
                             tokencomp = bus1[1];
                             comp = bus1[2];
@@ -266,7 +357,7 @@ public class Analiza
                         }
                         if (compra2token.equals("T50"))
                         {
-                            bus2 = TablaS.busca(tablaSimbolos, compra2,tablaErrores);
+                            bus2 = TablaS.buscaArray(tablaTablas, compra2, tablaErrores);
                             tokencomp2 = bus2[1];
                             comp2 = bus2[2];
 
@@ -276,7 +367,7 @@ public class Analiza
                     } else
                     {
 
-                        reAdan = VariablesYOperadores.tipoDeVariablesYOperador(compra1token, compra2token, re.get(a) + "",  compra2,compra1);
+                        reAdan = VariablesYOperadores.tipoDeVariablesYOperador(compra1token, compra2token, re.get(a) + "", compra1, compra2);
 
                     }
 
@@ -299,20 +390,67 @@ public class Analiza
                     {
                         if (re2.contains("T8"))
                         {
-                            String lex = (re.remove(0) + "").trim();
-                            String lex2 = (re2.remove(0) + "").trim();
-                            String valor = (re.remove(0) + "").trim();
-                            String valor2 = (re2.remove(0) + "").trim();
-                            String valorReal = valor2.trim();
-                            System.out.println(lex);
-                            System.out.println(lex2);
-                            System.out.println(valor);
-                            System.out.println(valor2);
-                            System.out.println();
-                            String tabladetablas[][][] = TablaS.asignatabla(tablaSimbolos, lex, valorReal, valor, tablaErrores);
-                            tablaSimbolos = tabladetablas[0];
-                            tablaErrores = tabladetablas[1];
+                            if (((String) re2.get(1)).trim().equals("T50"))
+                            {
+
+                                String lex = (re.remove(0) + "").trim();
+                                String lextoken = (re2.remove(0) + "").trim();
+                                String lex2 = (re.remove(0) + "").trim();
+                                String lex2token = (re2.remove(0) + "").trim();
+
+                                String[] bus2 = TablaS.buscaArray(tablaTablas, lex2, tablaErrores);
+                                String tokencomp2 = bus2[1];
+                                String comp2 = bus2[2];
+
+                                ArrayList tab = TablaS.asignatabla(tablaTablas, lex, tokencomp2, comp2, tablaErrores);
+
+                            } else
+                            {
+
+                                String lex = (re.remove(0) + "").trim();
+                                String lex2 = (re2.remove(0) + "").trim();
+                                String valor = (re.remove(0) + "").trim();
+                                String valor2 = (re2.remove(0) + "").trim();
+
+                                String valorReal = valor2.trim();
+                                System.out.println(lex);
+                                System.out.println(lex2);
+                                System.out.println(valor);
+                                System.out.println(valor2);
+                                System.out.println();
+                                ArrayList tab = TablaS.asignatabla(tablaTablas, lex, valorReal, valor, tablaErrores);
+                            }
                             System.out.println("jajaja");
+                        } else
+                        {
+
+                            if (re2.contains("T3"))
+                            {
+
+                                if (((String) re2.get(0)).trim().equals("T50") || ((String) re2.get(1)).trim().equals("T50"))
+                                {
+
+                                    if (((String) re2.get(0)).trim().equals("T50"))
+                                    {
+
+                                        String[] bus2 = TablaS.buscaArray(tablaTablas, (String) re.get(0), tablaErrores);
+                                        String tokencomp2 = bus2[1];
+                                        String comp2 = bus2[2];
+
+                                    }
+
+                                    if (((String) re2.get(1)).trim().equals("T50"))
+                                    {
+                                        String[] bus2 = TablaS.buscaArray(tablaTablas, (String) re.get(1), tablaErrores);
+                                        String tokencomp2 = bus2[1];
+                                        String comp2 = bus2[2];
+
+                                    }
+
+                                }
+
+                            }
+
                         }
 
                     }
@@ -329,64 +467,191 @@ public class Analiza
             System.out.println(S.toString());
             System.out.println(S1.toString());
         }
-        String[][][] tab = new String[3][][];
-        tab[0] = tablaSimbolos;
-        tab[1] = tablaErrores;
+        ArrayList tab = new ArrayList();
+        tab.add(tablaTablas);
+        tab.add(tablaErrores);
 
         return tab;
     }
-    
-    public static void codigoIntermedioSent(String token, String[][] etiquetas, int numEtiqueta) {
-        switch(token){
-            case "T12":
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                etiquetas = verificarEtiq("B.True", etiquetas, numEtiqueta);
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                etiquetas = verificarEtiq("B.False", etiquetas, numEtiqueta);
-                mostrarEtiquetas(etiquetas);
-                break;
-            case "T13":
-                
-                break;
-            case "T14":
-                
-                break;
-            default: System.out.println("Error al entrar código intermedio.");
-                break;
-        }
+
+    public static String eliminaSent(String cad, String sentencia)
+    {
+        System.out.println("\nELIMINACIÓN DE SENTENCIA: " + sentencia);
+        String res[] = cad.split(sentencia);
+        String r[] = res[1].split(":");
+        return r[0];
     }
-    
-    public static String[][] verificarEtiq(String etiqueta, String[][] etiquetas, int numEtiqueta) {
-        for (int i = 0; i < etiquetas.length; i++) {
-            if (etiquetas[i][0] != null) {
-                if (etiquetas[i][0].equals(etiqueta)) {
-                    for (int j = 0; j < etiquetas[i].length; j++) {
-                        if (etiquetas[i][j] == null) {
-                            etiquetas[i][j] = String.valueOf(numEtiqueta);
-                            return etiquetas;
-                        }
+
+    public static String[] separaExpDeSent(String exp)
+    {
+        String cad = "";
+        for (int i = 0; i < exp.codePointCount(0, exp.length()); i++)
+        {
+            if (i != 0 && i != exp.codePointCount(0, exp.length()) - 1)
+            {
+                cad += exp.charAt(i);
+            }
+        }
+        System.out.println(cad);
+        String r[] = cad.split(";");
+        return r;
+    }
+
+    public static String clases(String[] valor, String[] token)
+    {
+
+        if (gramatica.Gramatica.tablaClases.size() != 0)
+        {
+            for (int i = 0; i < gramatica.Gramatica.tablaClases.size(); i++)
+            {
+                String[] vec = (String[]) gramatica.Gramatica.tablaClases.get(i);
+                if (vec != null)
+                {
+
+                    if (vec[0].trim().equals(valor[1].trim()))
+                    {
+
+                        String vectorError[] =
+                        {
+                            valor[1], "clase", null, "0", "clase duplicada"
+                        };
+                        gramatica.Gramatica.tablaErrores.add(vectorError);
+                        return "";
                     }
+
                 }
-            } else {
-                etiquetas[i][0] = etiqueta;
-                etiquetas[i][1] = String.valueOf(numEtiqueta);
-                return etiquetas;
+
+            }
+
+        }
+
+        String vectorClase[] =
+        {
+            valor[1], "Clase", null, "0", ""
+        };
+        gramatica.Gramatica.tablaClases.add(vectorClase);
+
+        return "";
+    }
+
+    public static String metodos(String[] valor, String[] token)
+    {
+        if (gramatica.Gramatica.tablaMetodos.size() != 0)
+        {
+            for (int i = 0; i < gramatica.Gramatica.tablaMetodos.size(); i++)
+            {
+                String[] vec = (String[]) gramatica.Gramatica.tablaMetodos.get(i);
+                if (vec != null)
+                {
+
+                    if (vec[0].trim().equals(valor[1].trim()) && vec[4].trim().equals(((String[]) gramatica.Gramatica.tablaClases.get(gramatica.Gramatica.tablaClases.size() - 1))[0].trim()))
+                    {
+
+                        String vectorError[] =
+                        {
+                            valor[1], "Metodo", null, "0", "Metodo duplicada"
+                        };
+                        gramatica.Gramatica.tablaErrores.add(vectorError);
+                        return "";
+                    }
+
+                }
+
+            }
+
+        }
+
+        String vectorClase[] =
+        {
+            valor[1], "Metodo", null, "0", ((String[]) gramatica.Gramatica.tablaClases.get(gramatica.Gramatica.tablaClases.size() - 1))[0]
+        };
+        gramatica.Gramatica.tablaMetodos.add(vectorClase);
+
+        return "";
+    }
+
+    public static String metodosparametros(String[] valor, String[] token)
+    {
+
+        if (valor.length > 4)
+        {
+            String[] vec = Analiza.creaVector(valor[4].trim(), valor[3].trim(), "");
+            vec[3] = "0";
+            TablaS.tablaSimbolosDeclara(gramatica.Gramatica.tablaTablas, vec, gramatica.Gramatica.tablaErrores);
+            creaTabla(gramatica.Gramatica.tablaTablas, vec);
+
+            for (int i = 3; i < token.length; i++)
+            {
+
+                if (token[i].trim().equals("T10"))
+                {
+                    vec = Analiza.creaVector(valor[i + 2].trim(), valor[i + 1].trim(), "");
+                    vec[3] = "0";
+                    vec[4] = TablaS.tablaSimbolosDeclara(gramatica.Gramatica.tablaTablas, vec, gramatica.Gramatica.tablaErrores);
+                    creaTabla(gramatica.Gramatica.tablaTablas, vec);
+                }
+
+            }
+
+        }
+
+        return "";
+    }
+
+    public static ArrayList para(String[] para, String[] tokens)
+    {
+
+        String aaa = "";
+        String aaatoken = "";
+
+        for (int i = 2; i < para.length - 1; i++)
+        {
+            if (para[i].trim().equals(";"))
+            {
+                aaa += para[i].trim() + "";
+                aaatoken += tokens[i].trim() + "";
+            } else
+            {
+                aaa += para[i].trim() + " ";
+                aaatoken += tokens[i].trim() + " ";
+
             }
         }
-        return etiquetas;
-    }
-    
-    public static int nuevaEtiqueta(int actual) {
-        actual = actual + 10;
-        return actual;
-    }
-    
-    public static void mostrarEtiquetas(String[][] etiquetas) {
-        for (int i = 0; i < etiquetas.length; i++) {
-            for (int j = 0; j < etiquetas[i].length; j++) {
-                System.out.print(etiquetas[i][j] + "\t");
-            }
-            System.out.println("");
+        ArrayList paraArray = new ArrayList();
+
+        String[] p1 = aaa.split(";");
+        String[] p2 = aaatoken.split("T9");
+
+        for (int i = 0; i < 3; i++)
+        {
+            paraArray.add(p1[i].split(" "));
+            paraArray.add(p2[i].split(" "));
+
         }
+
+        return paraArray;
     }
+
+    public static Stack<String> transformar(PilasE p)
+    {
+
+        Stack<String> pi1 = new Stack<String>();
+
+        int top = p.getTope();
+        for (int i = 0; i < top + 1; i++)
+        {
+            pi1.add((String) p.eliminar());
+        }
+
+        Stack<String> re = new Stack<String>();
+
+        for (int i = 0; i < top + 1; i++)
+        {
+
+            re.add(pi1.pop());
+
+        }
+        return re;
+    }
+
 }
