@@ -71,7 +71,7 @@ public class Etiquetas {
     }
 
 
-    private int nuevaEtiqueta=0;
+    private int nuevaEtiqueta;
     private int inicio;  
     private int E1True;
     private int E1false;
