@@ -17,8 +17,10 @@ public class TablaTemporales {
 
     public static void main(String args[]) {
         
-String expr[]={"z","=","a","+","b","/","c","-","d","+","j"};
-        String[][] tabla1 = tabla(Postfijo.postfijo(expr));
+String expr[]={"a","<","5","+","1"};
+  
+//String expr="a<5+1";
+String[][] tabla1 = tabla(Postfijo.postfijo(expr));
         for (int i = 0; i < tabla1.length; i++) {
             for (int j = 0; j < tabla1[0].length; j++) {
                 System.out.print(tabla1[i][j] + "\t");

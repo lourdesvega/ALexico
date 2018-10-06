@@ -20,32 +20,32 @@ public class Postfijo {
     public static void main(String[] args) {
 
         //Depurar la expresion algebraica
-        //String expr = "((((a   *  b   *    c  /  d  +  a ) > ( b - c - d  ) ||( a -5 *3 ) > ( b -d * f) && b > f )))";
-       // String expr="z=a+b/c-d*b+a-5.4*3";
-String expr[]={"z","=","a","+","b","/","c","-","d","+","j"};
+       //String expr = "((((a   *  b   *    c  /  d  +  a ) > ( b - c - d  ) ||( a -5 *3 ) > ( b -d * f) && b > f )))";
+       //String expr="z=a+b/c-d*b+a-5.4*3";
+//String expr[]={"z","=","a","+","b","/","c","-","d","+","j"};
 //String expr="z=a>b||b>c)||b<(5+4*c/d)";
        int a=1,b=2,c=3,d=4;
        //boolean z=((a>b||b>c)||b<(5+4*c/d));
         //System.out.println("valor de z :"+z);
-       String[] post= postfijo(expr);
+       //String[] post= postfijo(expr);
 
     }
 
-     public static String[] postfijo(String expr[]) {
+     public static String[] postfijo(String []expr) {
         String post[];
         //expr = "(" + expr + ")";
         //expr = depurar(expr);
 
-        //Depurar la expresion algebraica
+       // Depurar la expresion algebraica
         String nuevo[] =new String[expr.length+2];
         
-        nuevo[0]="(";
-        nuevo[nuevo.length-1]=")";
+       nuevo[0]="(";
+       nuevo[nuevo.length-1]=")";
         System.arraycopy(expr, 0, nuevo, 1, expr.length);
         
         
         
-        String[] arrayInfix = nuevo;
+       String[] arrayInfix = nuevo;
 
         //Declaración de las pilas
         Stack< String> E = new Stack< String>(); //Pila entrada
