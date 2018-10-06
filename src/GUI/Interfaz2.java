@@ -540,28 +540,7 @@ public class Interfaz2 extends javax.swing.JFrame
                 jTable2.setModel(modelo1);
                 if (tokens != null)
                 {
-                    GramaticaMatriz gra = new GramaticaMatriz();
-                    String mR[][][] = Gramatica.gra(gra.tabla, gra.gramatica, tokens, valores);
-                    String m[][] = mR[0];
-                    String mSemantico[][] = mR[1];
-                    String mErrores[][] = mR[2];
-                    String mSimbolos[][] = mR[3];
-                    String mErroresSi[][] = mR[4];
-                   jTextArea2.setText(gramatica.Gramatica.resultadoString);
-                
-
-                    modelo1 = new DefaultTableModel(m, encabe1);
-                    jTable2.setModel(modelo1);
-
-                    modelo2 = new DefaultTableModel(mSemantico, encabe3);
-                    jTable5.setModel(modelo2);
-
-                    modelo3 = new DefaultTableModel(mErrores, encabe3);
-                    jTable4.setModel(modelo3);
-                    modeloSi = new DefaultTableModel(mSimbolos, encabeSi);
-                    jTable3.setModel(modeloSi);
-                    modeloSi = new DefaultTableModel(mErroresSi, encabeSi);
-                    jTable6.setModel(modeloSi);
+     
 
                 }
             } else

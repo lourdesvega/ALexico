@@ -5,6 +5,9 @@
  */
 package CodigoIntermedio;
 
+import LulúPost.Postfijo;
+import static LulúPost.TablaTemporales.tabla;
+import com.sun.org.glassfish.external.statistics.Statistic;
 import java.util.ArrayList;
 import java.util.Stack;
 import static semantico.Analiza.analizaPila;
@@ -27,7 +30,10 @@ public class Intermedio
     static int etiqueta = 0;
     static Etiquetas nueva;
     static Etiquetas anterior;
+public static int nuevaE(){
+return etiqueta=etiqueta+10;
 
+}
     public static void rutina(Stack< String> Pila, Etiquetas principal)
     {
         Stack pila = new Stack();
@@ -106,64 +112,76 @@ public class Intermedio
 
     public static int nuevaEtiqueta(int actual)
     {
-        actual+=10;
+        actual += 10;
         return actual;
     }
 
-    public static ArrayList creacodigo(String[] programa, String[] programaTokens, ArrayList tablaCodigoIntermedio,int i)
+    public static String creacodigo(String[] programa, String[] programaTokens, int i,String a)
     {
-        
-            switch (programaTokens[i].trim())
+
+        switch (programaTokens[i].trim())
+        {
+
+            case "T50":
+
+                break;
+            case "T12"://SI
+                Etiquetas e = new Etiquetas();
+                e.setE1True(nuevaE());
+                e.setE1false(nuevaE());
+                String condicion = "";
+                i++;
+                do
                 {
 
-                    case "T50":
-                        
-                        
-                        
-                        
-                        break;
-                    case "T12"://SI
-                        Etiquetas e = new Etiquetas();
-                        e.setE1True(nuevaEtiqueta(etiqueta));
-                        e.setE1false(nuevaEtiqueta(etiqueta));
-                        String condicion="";
-                        do
-                        {    
-                             i++;
-                            condicion+=programa[i];
-                            
-                            
-                            
-                           
-                        } while(programaTokens[i].equals("T7"));
-                        
-                      
-                        break;
-                    case "T15"://mientras
+                    condicion += programa[i] + ";";
 
-                        break;
-                    case "T13"://SINO
+                    i++;
 
-                        break;
-                    case "T17"://ENTRA
+                } while (!programa[i].equals(":"));
 
-                        break;
-                    case "T20"://CLASE
+                String expr[] =condicion.split(";");
+                String cond[]=Postfijo.postfijo(expr);
+                String[][] tabla1 = tabla(cond);
+               
+             
+             
+                
+                
+               // codigoCondicion();
+                a=genera(e.getE1True()+":",a);
+                creacodigo(programa, programaTokens, i,a);
+                a=genera(e.getE1false()+":",a);
+                creacodigo(programa, programaTokens, i,a);
+                break;
+            case "T15"://mientras
 
-                        //verificar clase
-                        break;
-                    case "T18"://caso
+                break;
+            case "T13"://SINO
 
-                        break;
-                    case "T23"://Metodo
-                        //verificar metodo
+                break;
+            case "T17"://ENTRA
 
-                        break;
+                break;
+            case "T20"://CLASE
 
-                }
-        
-        
+                //verificar clase
+                break;
+            case "T18"://caso
 
-        return null;
+                break;
+            case "T23"://Metodo
+                //verificar metodo
+
+                break;
+
+        }
+
+        return a;
+    }
+
+    private static String genera(String s,String a)
+    {
+     return a+=s+"\n";
     }
 }
