@@ -1,5 +1,6 @@
 package gramatica;
 
+import CodigoIntermedio.Intermedio;
 import estructura.*;
 import clases.Arreglos;
 import java.util.ArrayList;
@@ -11,12 +12,18 @@ public class Gramatica
 
     public static String tablaMadre[][][] = new String[1][][];
     public static int banderaTabla = 0;
+    public static int etiqueta = 0;
+
     public static ArrayList tablaTablas = new ArrayList();
     //public static ArrayList tablaTablas = new ArrayList();
     public static ArrayList tablaErrores = new ArrayList();
     public static ArrayList tablaClases = new ArrayList();
     public static ArrayList tablaMetodos = new ArrayList();
     public static ArrayList tablaTablasResultado = new ArrayList();
+    public static ArrayList tablaCodigoIntermedio = new ArrayList();
+    public static ArrayList pilaCodigoIntermedio = new ArrayList();
+
+
     public static String resultadoString = "";
 
     public static void limpia()
@@ -476,5 +483,7 @@ public class Gramatica
 
         return null;
     }
+
+    
 
 }
