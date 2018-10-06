@@ -16,7 +16,8 @@ public class TablaTemporales {
      static int temporal;
 
     public static void main(String args[]) {
-        String expr = "a<(v*6*6-5-3)";
+        
+String expr[]={"z","=","a","+","b","/","c","-","d","+","j"};
         String[][] tabla1 = tabla(Postfijo.postfijo(expr));
         for (int i = 0; i < tabla1.length; i++) {
             for (int j = 0; j < tabla1[0].length; j++) {
@@ -24,7 +25,6 @@ public class TablaTemporales {
             }
             System.out.println("");
         }
-        expr = "a>(b*7+4-4)";
         tabla1 = tabla(Postfijo.postfijo(expr));
         for (int i = 0; i < tabla1.length; i++) {
             for (int j = 0; j < tabla1[0].length; j++) {
