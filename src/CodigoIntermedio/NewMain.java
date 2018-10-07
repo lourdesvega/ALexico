@@ -19,11 +19,12 @@ public class NewMain
      */
     public static void main(String[] args)
     {
-   String programa[]={"Si","(","n",">","5","+","1", ")",":", ":"};
-     String programaTokens[]={"T12","T5","T50","T3","T51","T2","T51", "T6","T7", "T7"};
+   String programa[]={"a","Si","(","n",">","5","+","4","+","4", ")",":","Si","(","z",">","5","+","4","+","4", ")",":", ":"};
+     String programaTokens[]={"a","T12","T5","T50","T3","T51","T2","T51", "T6","T51","T5","T7", "T12","T5","T50","T3","T51","T2","T51", "T6","T51","T5","T7"};
     
      String letras="";
-     letras= Intermedio.creacodigo(programa, programaTokens, 0,letras);
+     ArrayList a=new ArrayList();
+     letras= Intermedio.creacodigo(programa, programaTokens,a, 0,letras);
         System.out.println(letras);
 
 

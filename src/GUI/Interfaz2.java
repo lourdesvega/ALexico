@@ -10,6 +10,7 @@ import gramatica.GramaticaMatriz;
 import javax.swing.table.DefaultTableModel;
 import clases.Matriz;
 import clases.SeparaToken;
+import java.util.ArrayList;
 
 /**
  *
@@ -302,7 +303,7 @@ public class Interfaz2 extends javax.swing.JFrame
         jTextArea2.setRows(5);
         jScrollPane10.setViewportView(jTextArea2);
 
-        jButton6.setText("jButton6");
+        jButton6.setText("Codigo Intermedio");
         jButton6.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -514,7 +515,7 @@ public class Interfaz2 extends javax.swing.JFrame
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
     {//GEN-HEADEREND:event_jButton6ActionPerformed
-
+ 
 
 
 
@@ -540,7 +541,12 @@ public class Interfaz2 extends javax.swing.JFrame
                 jTable2.setModel(modelo1);
                 if (tokens != null)
                 {
-     
+                    ArrayList tab=new ArrayList();
+                    String a="";
+                    a=CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a);
+                    //System.out.println(a);
+                    jTextArea2.setText("");
+                    jTextArea2.setText(a);
 
                 }
             } else
