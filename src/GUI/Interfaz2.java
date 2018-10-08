@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import LulúPost.TablaTemporales;
 import gramatica.Gramatica;
 import gramatica.GramaticaMatriz;
 import javax.swing.table.DefaultTableModel;
@@ -545,6 +546,7 @@ public class Interfaz2 extends javax.swing.JFrame
                     String a="";
                     a=CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a);
                     CodigoIntermedio.Intermedio.etiqueta=0;
+                    TablaTemporales.temporal=0;
                     //System.out.println(a);
                     jTextArea2.setText("");
                     jTextArea2.setText(a);
