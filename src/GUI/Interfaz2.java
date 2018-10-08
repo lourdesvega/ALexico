@@ -544,6 +544,7 @@ public class Interfaz2 extends javax.swing.JFrame
                     ArrayList tab=new ArrayList();
                     String a="";
                     a=CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a);
+                    CodigoIntermedio.Intermedio.etiqueta=0;
                     //System.out.println(a);
                     jTextArea2.setText("");
                     jTextArea2.setText(a);

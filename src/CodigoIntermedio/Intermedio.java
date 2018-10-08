@@ -8,6 +8,7 @@ package CodigoIntermedio;
 import LulúPost.Postfijo;
 import static LulúPost.TablaTemporales.tabla;
 import com.sun.org.glassfish.external.statistics.Statistic;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -28,7 +29,7 @@ import semantico.PilasE;
 public class Intermedio
 {
 
-    static int etiqueta = 0;
+    public static int etiqueta = 0;
     static Etiquetas nueva;
     static Etiquetas anterior;
 
@@ -122,6 +123,7 @@ public class Intermedio
 
     public static String creacodigo(String[] programa, String[] programaTokens, ArrayList tab, int i, String a)
     {
+
         if (i < programaTokens.length)
         {
             switch (programaTokens[i].trim())
@@ -148,10 +150,10 @@ public class Intermedio
 
                     String expr[] = condicion.split(";");
                     String cond[] = Postfijo.postfijo(expr);
-                    List ta = tabla(cond, (ArrayList) tab);
+                    ArrayList ta = tabla(cond, tab);
 
-                    a = codigoCondicion(ta, a);
-                    a = genera("goto "+e.getSSig(), a);
+                    a = codigoCondicion(ta, a, e);
+                    //a = genera("goto " + e.getSSig(), a);
                     a = genera("\n" + e.getE1True() + ":", a);
                     i = i + 1;
                     a = creacodigo(programa, programaTokens, (ArrayList) tab, i, a);
@@ -192,22 +194,115 @@ public class Intermedio
         }
     }
 
-    private static String genera(String s, String a)
+    public static String genera(String s, String a)
     {
         return a += s + " ";
     }
 
-    private static String codigoCondicion(List ta, String a)
+    public static String codigoCondicion(ArrayList ta, String a, Etiquetas e)
     {
+        if (ta.size() == 0)
+        {
+            return a;
+        }
         if (ta.contains("&&") || ta.contains("||"))
         {
-            System.out.println("si");
-            
-            
+
+            if (ta.size() > 7)
+            {
+                ArrayList con1 = (ArrayList) ta.clone();
+
+                String or = (String) con1.remove(con1.size() - 1);
+                ArrayList con2 = new ArrayList();
+                con2.add(0, con1.remove(con1.size() - 1));
+                con2.add(0, con1.remove(con1.size() - 1));
+                con2.add(0, con1.remove(con1.size() - 1));
+
+                if (or.equals("&&"))
+                {
+
+                    Etiquetas e1 = new Etiquetas();
+                    e1.setE1True(nuevaE());
+                    e1.setE1false(e.getE1false());
+                    e1.setE2True(e.getE1True());
+                    e1.setE2false(e.getE1false());
+
+                    a = codigoCondicion(con1, a, e1);
+                    a = genera("\n" + e1.getE1True() + ":", a);
+                    a = codigoCondicion(con2, a, e);
+
+                }
+
+                if (or.equals("||"))
+                {
+
+                    Etiquetas e1 = new Etiquetas();
+                    e1.setE1True(e.getE1True());
+                    e1.setE1false(nuevaE());
+                    e1.setE2True(e.getE1True());
+                    e1.setE2false(e.getE1false());
+
+                    a = codigoCondicion(con1, a, e1);
+                    a = genera("\n" + e1.getE1false() + ":", a);
+                    a = codigoCondicion(con2, a, e);
+
+                }
+                System.out.println(or);
+                System.out.println(con1);
+                System.out.println(con2);
+
+            } else
+            {
+                ArrayList con1 = (ArrayList) ta.clone();
+                ArrayList con2 = (ArrayList) ta.clone();
+                String or = (String) con1.remove(con1.size() - 1);
+                con1.remove(con1.size() - 1);
+                con1.remove(con1.size() - 1);
+                con1.remove(con1.size() - 1);
+
+                con2.remove(0);
+                con2.remove(0);
+                con2.remove(0);
+                con2.remove(con2.size() - 1);
+                if (or.equals("&&"))
+                {
+
+                    Etiquetas e1 = new Etiquetas();
+                    e1.setE1True(nuevaE());
+                    e1.setE1false(e.getE1false());
+                    e1.setE2True(e.getE1True());
+                    e1.setE2false(e.getE1false());
+
+                    a = codigoCondicion(con1, a, e1);
+                    a = genera("\n" + e1.getE1True() + ":", a);
+                    a = codigoCondicion(con2, a, e);
+
+                }
+                if (or.equals("||"))
+                {
+
+                    Etiquetas e1 = new Etiquetas();
+                    e1.setE1True(e.getE1True());
+                    e1.setE1false(nuevaE());
+                    e1.setE2True(e.getE1True());
+                    e1.setE2false(e.getE1false());
+
+                    a = codigoCondicion(con1, a, e1);
+                    a = genera("\n" + e1.getE1false() + ":", a);
+                    a = codigoCondicion(con2, a, e);
+
+                }
+                System.out.println(or);
+                System.out.println(con1);
+                System.out.println(con2);
+
+            }
         } else
         {
 
-            a = genera("\n" + "if" + ta.toString(), a);
+            a = genera("\n" + "if" + ta.toString() + " go to " + e.getE1True(), a);
+            a = genera("\n" + "go to " + e.getE1false(), a);
+
         }
 
         return a;

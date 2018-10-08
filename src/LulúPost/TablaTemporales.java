@@ -48,11 +48,11 @@ public class TablaTemporales
 */  
 }
 
-    public static List tabla(String exp[], ArrayList tabla1)
+    public static ArrayList tabla(String exp[], ArrayList tabla1)
     {
 
         //int temp
-        List<String> Lista = new ArrayList<String>();
+        ArrayList<String> Lista = new ArrayList<String>();
         int cont = 0;
         int t;
         String[] vector;
