@@ -133,6 +133,8 @@ public class Intermedio
                     Etiquetas e = new Etiquetas();
                     e.setE1True(nuevaE());
                     e.setE1false(nuevaE());
+                    e.setSSig(nuevaE());
+
                     String condicion = "";
                     i = i + 1;
                     do
@@ -149,7 +151,7 @@ public class Intermedio
                     List ta = tabla(cond, (ArrayList) tab);
 
                     a = codigoCondicion(ta, a);
-                    a = genera("goto ", a);
+                    a = genera("goto "+e.getSSig(), a);
                     a = genera("\n" + e.getE1True() + ":", a);
                     i = i + 1;
                     a = creacodigo(programa, programaTokens, (ArrayList) tab, i, a);
@@ -200,6 +202,8 @@ public class Intermedio
         if (ta.contains("&&") || ta.contains("||"))
         {
             System.out.println("si");
+            
+            
         } else
         {
 
