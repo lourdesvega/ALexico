@@ -15,7 +15,7 @@ import java.util.List;
 public class TablaTemporales
 {
 
-    static int temporal;
+   public static int temporal;
 
     public static void main(String args[])
     {
