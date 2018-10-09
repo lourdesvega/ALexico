@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import CodigoIntermedio.Intermedio;
 import LulúPost.TablaTemporales;
 import gramatica.Gramatica;
 import gramatica.GramaticaMatriz;
@@ -480,8 +481,7 @@ public class Interfaz2 extends javax.swing.JFrame
                     String mErrores[][] = mR[2];
                     String mSimbolos[][] = mR[3];
                     String mErroresSi[][] = mR[4];
-                   jTextArea2.setText(gramatica.Gramatica.resultadoString);
-                
+                    jTextArea2.setText(gramatica.Gramatica.resultadoString);
 
                     modelo1 = new DefaultTableModel(m, encabe1);
                     jTable2.setModel(modelo1);
@@ -516,11 +516,6 @@ public class Interfaz2 extends javax.swing.JFrame
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
     {//GEN-HEADEREND:event_jButton6ActionPerformed
- 
-
-
-
-
 
         Matriz claseMa = new Matriz();
         String[] tabla = claseMa.crea(jTextArea1);
@@ -542,14 +537,22 @@ public class Interfaz2 extends javax.swing.JFrame
                 jTable2.setModel(modelo1);
                 if (tokens != null)
                 {
-                    ArrayList tab=new ArrayList();
-                    String a="";
-                    a=CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a);
-                    CodigoIntermedio.Intermedio.etiqueta=0;
-                    TablaTemporales.temporal=0;
+                    ArrayList tab = new ArrayList();
+                    String a = "";
+                    a = CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a);
+                    CodigoIntermedio.Intermedio.etiqueta = 0;
+                    TablaTemporales.temporal = 0;
                     //System.out.println(a);
                     jTextArea2.setText("");
-                    jTextArea2.setText(a);
+                    jTextArea2.setText(a + "\n");
+                    int i1 = Intermedio.ta1.size();
+                    String textotabla = "----------- "+"\n";
+                    for (int i = 0; i < i1; i++)
+                    {
+                        textotabla += (((String[]) Intermedio.ta1.get(i))[0])+" "+((String[]) Intermedio.ta1.get(i))[1]+" "+((String[]) Intermedio.ta1.get(i))[2]+" "+((String[]) Intermedio.ta1.get(i))[3]+"\n";
+                    }
+
+                    jTextArea2.setText(jTextArea2.getText()+textotabla);
 
                 }
             } else

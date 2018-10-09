@@ -32,6 +32,7 @@ public class Intermedio
     public static int etiqueta = 0;
     static Etiquetas nueva;
     static Etiquetas anterior;
+    public static ArrayList ta1;
 
     public static int nuevaE()
     {
@@ -151,7 +152,7 @@ public class Intermedio
                     String expr[] = condicion.split(";");
                     String cond[] = Postfijo.postfijo(expr);
                     ArrayList ta = tabla(cond, tab);
-
+                    ta1 = tab;
                     a = codigoCondicion(ta, a, e);
                     //a = genera("goto " + e.getSSig(), a);
                     a = genera("\n" + e.getE1True() + ":", a);
@@ -161,8 +162,32 @@ public class Intermedio
                     return a;
 
                 case "T15"://mientras
+                    Etiquetas emi = new Etiquetas();
+                    emi.setInicio(nuevaE());
+                    emi.setE1True(nuevaE());
+                    emi.setE1false(nuevaE());
+                    a = genera("\n" + emi.getInicio() + ":", a);
+                    String condicionmi = "";
+                    i = i + 1;
+                    do
+                    {
 
-                    break;
+                        condicionmi += programa[i] + ";";
+
+                        i = i + 1;
+
+                    } while (!programa[i].equals(":"));
+                    String exprmi[] = condicionmi.split(";");
+                    String condmi[] = Postfijo.postfijo(exprmi);
+                    ArrayList tami = tabla(condmi, tab);
+                    ta1 = tab;
+                    a = codigoCondicion(tami, a, emi);
+                    a = genera("\n" + emi.getE1True() + ":", a);
+                    a = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a);
+                    a = genera("\n go to" + emi.getInicio(), a);
+                    a = genera("\n" + emi.getE1false() + ":", a);
+
+                    return a;
                 case "T13"://SINO
 
                     break;
@@ -172,7 +197,11 @@ public class Intermedio
                     break;
                 case "T20"://CLASE
                     //verificar clase
-                    break;
+
+                    a = genera(programa[i] + " " + programa[++i], a);
+                    a = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a);
+
+                    return a;
 
                 case "T18"://caso
 
@@ -180,7 +209,15 @@ public class Intermedio
                 case "T23"://Metodo
                     //verificar metodo
 
-                    break;
+                    a = genera("\n" + programa[i] + " " + programa[++i], a);
+                    do
+                    {
+                        ++i;
+                    } while (!programa[i].equals(":"));
+
+                    a = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a);
+
+                    return a;
 
             }
 
