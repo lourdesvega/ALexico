@@ -539,20 +539,26 @@ public class Interfaz2 extends javax.swing.JFrame
                 {
                     ArrayList tab = new ArrayList();
                     String a = "";
-                    a = CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a);
+                    Object resul[] =
+                    {
+                        "", 0
+                    };
+                    CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a, resul);
+                    a = (String) resul[0];
+                    //i = (int) resul[1];
                     CodigoIntermedio.Intermedio.etiqueta = 0;
                     TablaTemporales.temporal = 0;
                     //System.out.println(a);
                     jTextArea2.setText("");
                     jTextArea2.setText(a + "\n");
                     int i1 = Intermedio.ta1.size();
-                    String textotabla = "----------- "+"\n";
+                    String textotabla = "----------- " + "\n";
                     for (int i = 0; i < i1; i++)
                     {
-                        textotabla += (((String[]) Intermedio.ta1.get(i))[0])+" "+((String[]) Intermedio.ta1.get(i))[1]+" "+((String[]) Intermedio.ta1.get(i))[2]+" "+((String[]) Intermedio.ta1.get(i))[3]+"\n";
+                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + " " + ((String[]) Intermedio.ta1.get(i))[1] + " " + ((String[]) Intermedio.ta1.get(i))[2] + " " + ((String[]) Intermedio.ta1.get(i))[3] + "\n";
                     }
 
-                    jTextArea2.setText(jTextArea2.getText()+textotabla);
+                    jTextArea2.setText(jTextArea2.getText() + textotabla);
 
                 }
             } else

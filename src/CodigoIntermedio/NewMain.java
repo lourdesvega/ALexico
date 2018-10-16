@@ -24,7 +24,7 @@ public class NewMain
     
      String letras="";
      ArrayList a=new ArrayList();
-     letras= Intermedio.creacodigo(programa, programaTokens,a, 0,letras);
+    // letras= Intermedio.creacodigo(programa, programaTokens,a, 0,letras);
         System.out.println(letras);
 
 

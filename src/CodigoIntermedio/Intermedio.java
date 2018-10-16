@@ -122,13 +122,15 @@ public class Intermedio
         return actual;
     }
 
-    public static String creacodigo(String[] programa, String[] programaTokens, ArrayList tab, int i, String a)
+    public static Object[] creacodigo(String[] programa, String[] programaTokens, ArrayList tab, int i, String a, Object[] resul)
     {
 
         if (i < programaTokens.length)
         {
             switch (programaTokens[i].trim())
-            {
+            {     case "T1":
+                System.out.println("si");
+                    break;
 
                 case "T50":
                     break;
@@ -142,11 +144,8 @@ public class Intermedio
                     i = i + 1;
                     do
                     {
-
                         condicion += programa[i] + ";";
-
                         i = i + 1;
-
                     } while (!programa[i].equals(":"));
 
                     String expr[] = condicion.split(";");
@@ -157,9 +156,17 @@ public class Intermedio
                     //a = genera("goto " + e.getSSig(), a);
                     a = genera("\n" + e.getE1True() + ":", a);
                     i = i + 1;
-                    a = creacodigo(programa, programaTokens, (ArrayList) tab, i, a);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, i, a, resul);
+                    a = (String) resul[0];
+                    i = (int) resul[1];
+
+                    a = genera("\n go to " + e.getSSig(), a);
                     a = genera("\n" + e.getE1false() + ":", a);
-                    return a;
+                    a = genera("\n" + e.getSSig() + ":", a);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    a = (String) resul[0];
+                    i = (int) resul[1];
+                    return resul;
 
                 case "T15"://mientras
                     Etiquetas emi = new Etiquetas();
@@ -183,11 +190,16 @@ public class Intermedio
                     ta1 = tab;
                     a = codigoCondicion(tami, a, emi);
                     a = genera("\n" + emi.getE1True() + ":", a);
-                    a = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    a = (String) resul[0];
+                    i = (int) resul[1];
                     a = genera("\n go to" + emi.getInicio(), a);
                     a = genera("\n" + emi.getE1false() + ":", a);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    a = (String) resul[0];
+                    i = (int) resul[1];
 
-                    return a;
+                    return resul;
                 case "T13"://SINO
 
                     break;
@@ -199,9 +211,15 @@ public class Intermedio
                     //verificar clase
 
                     a = genera(programa[i] + " " + programa[++i], a);
-                    a = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a);
+                    ++i;
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    a = (String) resul[0];
+                    i = (int) resul[1];
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    a = (String) resul[0]+"fin de clase";
+                    i = (int) resul[1];
 
-                    return a;
+                    return resul;
 
                 case "T18"://caso
 
@@ -215,19 +233,31 @@ public class Intermedio
                         ++i;
                     } while (!programa[i].equals(":"));
 
-                    a = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    a = (String) resul[0];
+                    i = (int) resul[1];
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    a = (String) resul[0];
+                    i = (int) resul[1];
 
-                    return a;
+                    return resul;
+                case "T7":
+                    
+                    
+                    resul[0]=a;
+                    resul[1]=i;
+
+                    return resul;
 
             }
 
-            a = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a);
-            return a;
+            // a = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a);
+            return resul;
 
         } else
         {
 
-            return a;
+            return resul;
         }
     }
 
