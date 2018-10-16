@@ -128,9 +128,26 @@ public class Intermedio
         if (i < programaTokens.length)
         {
             switch (programaTokens[i].trim())
-            {     case "T1":
-                System.out.println("si");
-                    break;
+            {
+                case "T1":
+                    String asignacion = "";
+                    i = i + 1;
+                    int j;
+                    do
+                    {
+                        asignacion += programa[i] + ";";
+                        i = i + 1;
+                        j = i + 1;
+
+                    } while (!programaTokens[i].equals("T12") && !programa[i].equals(":") && !programaTokens[i].equals("T1") && !programaTokens[i].equals("T15") && !(programa[i].equals("T50") && programa[j].equals("T50")));
+
+                    String exprA[] = asignacion.split(";");
+                    String condA[] = Postfijo.postfijo(exprA);
+                    ArrayList taA = tabla(condA, tab);
+                    ta1 = tab;
+                    a = genera("\n" + taA.toString(), a);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, i, a, resul);
+                    return resul;
 
                 case "T50":
                     break;
@@ -162,10 +179,20 @@ public class Intermedio
 
                     a = genera("\n go to " + e.getSSig(), a);
                     a = genera("\n" + e.getE1false() + ":", a);
+                    if (programaTokens[i + 1].equals("T13"))
+                    {
+                        resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
+                        a = (String) resul[0];
+                        i = (int) resul[1];
+                    }
+
+                    a = genera("\n go to " + e.getSSig(), a);
+
                     a = genera("\n" + e.getSSig() + ":", a);
-                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
                     a = (String) resul[0];
                     i = (int) resul[1];
+
                     return resul;
 
                 case "T15"://mientras
@@ -178,11 +205,8 @@ public class Intermedio
                     i = i + 1;
                     do
                     {
-
                         condicionmi += programa[i] + ";";
-
                         i = i + 1;
-
                     } while (!programa[i].equals(":"));
                     String exprmi[] = condicionmi.split(";");
                     String condmi[] = Postfijo.postfijo(exprmi);
@@ -190,20 +214,23 @@ public class Intermedio
                     ta1 = tab;
                     a = codigoCondicion(tami, a, emi);
                     a = genera("\n" + emi.getE1True() + ":", a);
-                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
                     a = (String) resul[0];
                     i = (int) resul[1];
                     a = genera("\n go to" + emi.getInicio(), a);
                     a = genera("\n" + emi.getE1false() + ":", a);
-                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
                     a = (String) resul[0];
                     i = (int) resul[1];
 
                     return resul;
                 case "T13"://SINO
+                    ++i;
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
+                    a = (String) resul[0];
+                    i = (int) resul[1];
 
-                    break;
-
+                    return resul;
                 case "T17"://ENTRA
 
                     break;
@@ -212,11 +239,11 @@ public class Intermedio
 
                     a = genera(programa[i] + " " + programa[++i], a);
                     ++i;
-                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
                     a = (String) resul[0];
                     i = (int) resul[1];
-                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
-                    a = (String) resul[0]+"fin de clase";
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
+                    a = (String) resul[0] + "fin de clase";
                     i = (int) resul[1];
 
                     return resul;
@@ -233,19 +260,18 @@ public class Intermedio
                         ++i;
                     } while (!programa[i].equals(":"));
 
-                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
                     a = (String) resul[0];
                     i = (int) resul[1];
-                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a,resul);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
                     a = (String) resul[0];
                     i = (int) resul[1];
 
                     return resul;
                 case "T7":
-                    
-                    
-                    resul[0]=a;
-                    resul[1]=i;
+
+                    resul[0] = a;
+                    resul[1] = i;
 
                     return resul;
 
