@@ -71,17 +71,17 @@ public class TablaTemporales
         {
             if ((Postfijo.pref(Lista.get(contO)) == 4 || Postfijo.pref(Lista.get(contO)) == 5) && Postfijo.pref(Lista.get(contO - 1)) == 99 && Postfijo.pref(Lista.get(contO - 2)) == 99)
             {
-                vector = new String[4];
-                vector[0] = Lista.get(contO - 2);
-                vector[1] = Lista.get(contO - 1);
-                vector[2] = Lista.get(contO);
-                vector[3] = "T" + (t = temporal());
-                tabla1.add(vector);
-                Lista.remove(contO);
-                Lista.remove(contO - 1);
-                Lista.set(contO - 2, "T" + (t));
+                    vector = new String[4];
+                    vector[0] = Lista.get(contO - 2);
+                    vector[1] = Lista.get(contO - 1);
+                    vector[2] = Lista.get(contO);
+                    vector[3] = "T" + (t = temporal());
+                    tabla1.add(vector);
+                    Lista.remove(contO);
+                    Lista.remove(contO - 1);
+                    Lista.set(contO - 2, "T" + (t));
 
-                contO = contO - 2;
+                    contO = contO - 2;
                 contT++;
             } else
             {

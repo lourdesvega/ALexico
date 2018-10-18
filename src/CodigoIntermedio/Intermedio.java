@@ -7,6 +7,7 @@ package CodigoIntermedio;
 
 import LulúPost.Postfijo;
 import static LulúPost.TablaTemporales.tabla;
+import static LulúPost.TablaTemporales.temporal;
 import com.sun.org.glassfish.external.statistics.Statistic;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class Intermedio
     public static int etiqueta = 0;
     static Etiquetas nueva;
     static Etiquetas anterior;
-    public static ArrayList ta1;
+    public static ArrayList ta1= new ArrayList();
 
     public static int nuevaE()
     {
@@ -70,52 +71,6 @@ public class Intermedio
         }
     }
 
-    public static Etiquetas codigoIntermedioSent(String token, String[][] etiquetas, int numEtiqueta)
-    {
-        Etiquetas sentencia = new Etiquetas();
-        int e1True, e1False, sSig, eInicio, eTrue, eFalse;
-        switch (token)
-        {
-            case "T12": // SI
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                e1True = numEtiqueta;
-                sentencia.setE1True(e1True);
-
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                e1False = numEtiqueta;
-                sentencia.setE1false(e1False);
-                break;
-            case "T13": // SINO
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                e1False = numEtiqueta;
-                sentencia.setE1false(e1False);
-
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                sSig = numEtiqueta;
-                sentencia.setSSig(sSig);
-                break;
-            case "T14": // PARA
-                break;
-            case "T15": // MIENTRAS
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                eInicio = numEtiqueta;
-                sentencia.setInicio(eInicio);
-
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                eTrue = numEtiqueta;
-                sentencia.setE1True(eTrue);
-
-                numEtiqueta = nuevaEtiqueta(numEtiqueta);
-                eFalse = numEtiqueta;
-                sentencia.setE1false(eFalse);
-                break;
-            default:
-                System.out.println("Error al entrar código intermedio de sentencias.");
-                break;
-        }
-        return sentencia;
-    }
-
     public static int nuevaEtiqueta(int actual)
     {
         actual += 10;
@@ -124,33 +79,36 @@ public class Intermedio
 
     public static Object[] creacodigo(String[] programa, String[] programaTokens, ArrayList tab, int i, String a, Object[] resul)
     {
+        String vector[]=new String[4];
 
         if (i < programaTokens.length)
         {
             switch (programaTokens[i].trim())
             {
                 case "T1":
-                    String asignacion = "";
-                    i = i + 1;
-                    int j;
-                    do
-                    {
-                        asignacion += programa[i] + ";";
-                        i = i + 1;
-                        j = i + 1;
-
-                    } while (!programaTokens[i].equals("T12") && !programa[i].equals(":") && !programaTokens[i].equals("T1") && !programaTokens[i].equals("T15") && !(programa[i].equals("T50") && programa[j].equals("T50")));
-
-                    String exprA[] = asignacion.split(";");
-                    String condA[] = Postfijo.postfijo(exprA);
-                    ArrayList taA = tabla(condA, tab);
-                    ta1 = tab;
-                    a = genera("\n" + taA.toString(), a);
+                    ++i;
                     resul = creacodigo(programa, programaTokens, (ArrayList) tab, i, a, resul);
                     return resul;
 
                 case "T50":
-                    break;
+                    String asignacion1 = "";
+                    int j1;
+                    do
+                    {
+                        asignacion1 += programa[i] + ";";
+                        i = i + 1;
+                        j1 = i + 1;
+
+                    } while (!programaTokens[i].equals("T12") && !programa[i].equals(":") && !programaTokens[i].equals("T1") && !programaTokens[i].equals("T15") && !(programa[i].equals("T50") && programa[j1].equals("T50")) && !(programa[i].equals("T51") && programa[j1].equals("T50")) && !(programa[i].equals("T52") && programa[j1].equals("T50")) && !(programa[i].equals("T6") && programa[j1].equals("T50")));
+
+                    String exprA1[] = asignacion1.split(";");
+                    String condA1[] = Postfijo.postfijo(exprA1);
+                    ArrayList taA1 = tabla(condA1, tab);
+                    ta1 = tab;
+                    
+                    a = genera("\n" + taA1.toString(), a);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, i, a, resul);
+                    return resul;
                 case "T12"://SI
                     Etiquetas e = new Etiquetas();
                     e.setE1True(nuevaE());
@@ -172,6 +130,7 @@ public class Intermedio
                     a = codigoCondicion(ta, a, e);
                     //a = genera("goto " + e.getSSig(), a);
                     a = genera("\n" + e.getE1True() + ":", a);
+
                     i = i + 1;
                     resul = creacodigo(programa, programaTokens, (ArrayList) tab, i, a, resul);
                     a = (String) resul[0];
@@ -236,21 +195,31 @@ public class Intermedio
                     break;
                 case "T20"://CLASE
                     //verificar clase
-
+                    String vector3[]=new String[4];
+                    vector3[0]=programa[i+1];
+                    vector3[1]="Clase";
+                    vector3[2]="";
+                    vector3[3]="Inicio";
+                    tab.add(vector3);
+                    
                     a = genera(programa[i] + " " + programa[++i], a);
                     ++i;
                     resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
                     a = (String) resul[0];
                     i = (int) resul[1];
+                    
+                    
+                    String vector4[]=new String[4];
+                    vector4[1]="Clase";
+                    vector4[2]="";
+                    vector4[3]="Fin";
+                    tab.add(vector4);
                     resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
+                    
                     a = (String) resul[0] + "fin de clase";
                     i = (int) resul[1];
 
                     return resul;
-
-                case "T18"://caso
-
-                    break;
                 case "T23"://Metodo
                     //verificar metodo
 
@@ -392,7 +361,18 @@ public class Intermedio
             }
         } else
         {
+            String[] vector = new String[4];
+            vector[0] = (String) ta.get(0);
+            vector[1] = (String) ta.get(1);
+            vector[2] = (String) ta.get(2);
+            vector[3] = e.getE1True() + "";
+            String[] vector1 = new String[4];
+            vector1[0] = "";
+            vector1[1] = "";
+            vector1[2] = "";
+            vector1[3] = e.getE1True() + "";
 
+            Intermedio.ta1.add(vector);
             a = genera("\n" + "if" + ta.toString() + " go to " + e.getE1True(), a);
             a = genera("\n" + "go to " + e.getE1false(), a);
 

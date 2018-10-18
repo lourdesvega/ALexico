@@ -555,7 +555,7 @@ public class Interfaz2 extends javax.swing.JFrame
                     String textotabla = "----------- " + "\n";
                     for (int i = 0; i < i1; i++)
                     {
-                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + " " + ((String[]) Intermedio.ta1.get(i))[1] + " " + ((String[]) Intermedio.ta1.get(i))[2] + " " + ((String[]) Intermedio.ta1.get(i))[3] + "\n";
+                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + "\t " + ((String[]) Intermedio.ta1.get(i))[1] + "\t " + ((String[]) Intermedio.ta1.get(i))[2] + "\t" + ((String[]) Intermedio.ta1.get(i))[3] + "\n";
                     }
 
                     jTextArea2.setText(jTextArea2.getText() + textotabla);
