@@ -64,13 +64,11 @@ public class Analiza
                     break;
                 case "T12"://SI
                     gramatica.Gramatica.tablaTablas.add(nuevo);
-                    String condicionsi[] = new String[sSemantica11.length-1];
-                    String condicionTokensi[] =new String[sSemantica1Tokens.length-1] ;
-                    System.arraycopy(sSemantica11, 1, condicionsi,0,condicionsi.length );
-                     System.arraycopy(sSemantica1Tokens, 1, condicionTokensi,0,condicionsi.length );
+                    String condicionsi[] = new String[sSemantica11.length - 1];
+                    String condicionTokensi[] = new String[sSemantica1Tokens.length - 1];
+                    System.arraycopy(sSemantica11, 1, condicionsi, 0, condicionsi.length);
+                    System.arraycopy(sSemantica1Tokens, 1, condicionTokensi, 0, condicionsi.length);
 
-                    
-                    
                     //String[] sSemantica11, String[] sSemantica1Tokens;
                     PilasE[] p1 = postfijo(condicionsi, condicionTokensi);
                     //for()
@@ -118,14 +116,12 @@ public class Analiza
                     break;
                 case "T15"://mientras
                     gramatica.Gramatica.tablaTablas.add(nuevo);
-                     String condicionmi[] = new String[sSemantica11.length-1];
-                    String condicionTokemi[] =new String[sSemantica1Tokens.length-1] ;
-                    System.arraycopy(sSemantica11, 1, condicionmi,0,condicionmi.length );
-                     System.arraycopy(sSemantica1Tokens, 1, condicionTokemi,0,condicionmi.length );
-    
-                    
-                    
-                      PilasE[] pmientras= postfijo(condicionmi, condicionTokemi);
+                    String condicionmi[] = new String[sSemantica11.length - 1];
+                    String condicionTokemi[] = new String[sSemantica1Tokens.length - 1];
+                    System.arraycopy(sSemantica11, 1, condicionmi, 0, condicionmi.length);
+                    System.arraycopy(sSemantica1Tokens, 1, condicionTokemi, 0, condicionmi.length);
+
+                    PilasE[] pmientras = postfijo(condicionmi, condicionTokemi);
                     //mostrarPila1(p1);
                     Stack<String> pm = transformar(pmientras[0]);
                     Stack<String> pm1 = transformar(pmientras[1]);
@@ -189,6 +185,12 @@ public class Analiza
             case "Flotante":
                 tipo1 = "T52";
                 break;
+            case "Cadena":
+                tipo1 = "T53";
+                break;
+            case "Caracter":
+                tipo1 = "T55";
+                break;
 
             case "Char":
                 break;
@@ -197,7 +199,7 @@ public class Analiza
 
         String vector[] =
         {
-            nuevo, tipo1, null, "0", error
+            nuevo.trim(), tipo1, null, "0", error
         };
 
         return vector;
