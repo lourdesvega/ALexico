@@ -130,15 +130,20 @@ public class Gramatica
                 } catch (Exception e)
                 {
 
-                    if (pi.equals(token))
+                    if (pi.trim().equals(token.trim()))
                     {
                         String auxSeToken = (String) c.eliminar();
                         String auxSe = (String) cValor.eliminar() + " ";
-                        if (token.equals("T7"))
+                        if (token.trim().equals("T7"))
                         {
                             banderaSemantica = 0;
                         }
-                        if (banderaSemantica == 1 || token.equals("T50"))
+                         if (token.trim().equals("T13"))
+                        {
+                            ArrayList nuevo = new ArrayList();
+                            Gramatica.tablaTablas.add(nuevo);  
+                        }
+                        if (banderaSemantica == 1 || token.trim().equals("T50"))
                         {
 
                             sSemantico += auxSe;
@@ -413,7 +418,7 @@ public class Gramatica
     public static boolean comp(String token)
     {
 
-        if (token.equals("T32"))
+        if (token.trim().equals("T32"))
         {
 
             return true;

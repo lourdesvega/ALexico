@@ -5,11 +5,14 @@
  */
 package GUI;
 
+import CodigoIntermedio.Intermedio;
+import LulúPost.TablaTemporales;
 import gramatica.Gramatica;
 import gramatica.GramaticaMatriz;
 import javax.swing.table.DefaultTableModel;
 import clases.Matriz;
 import clases.SeparaToken;
+import java.util.ArrayList;
 
 /**
  *
@@ -302,7 +305,7 @@ public class Interfaz2 extends javax.swing.JFrame
         jTextArea2.setRows(5);
         jScrollPane10.setViewportView(jTextArea2);
 
-        jButton6.setText("jButton6");
+        jButton6.setText("Codigo Intermedio");
         jButton6.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -478,8 +481,7 @@ public class Interfaz2 extends javax.swing.JFrame
                     String mErrores[][] = mR[2];
                     String mSimbolos[][] = mR[3];
                     String mErroresSi[][] = mR[4];
-                   jTextArea2.setText(gramatica.Gramatica.resultadoString);
-                
+                    jTextArea2.setText(gramatica.Gramatica.resultadoString);
 
                     modelo1 = new DefaultTableModel(m, encabe1);
                     jTable2.setModel(modelo1);
@@ -515,11 +517,6 @@ public class Interfaz2 extends javax.swing.JFrame
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
     {//GEN-HEADEREND:event_jButton6ActionPerformed
 
-
-
-
-
-
         Matriz claseMa = new Matriz();
         String[] tabla = claseMa.crea(jTextArea1);
         modelo = new DefaultTableModel(null, encabe);
@@ -540,7 +537,28 @@ public class Interfaz2 extends javax.swing.JFrame
                 jTable2.setModel(modelo1);
                 if (tokens != null)
                 {
-     
+                    ArrayList tab = new ArrayList();
+                    String a = "";
+                    Object resul[] =
+                    {
+                        "", 0
+                    };
+                    CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a, resul);
+                    a = (String) resul[0];
+                    //i = (int) resul[1];
+                    CodigoIntermedio.Intermedio.etiqueta = 0;
+                    TablaTemporales.temporal = 0;
+                    System.out.println(a);
+                    jTextArea2.setText("");
+                    jTextArea2.setText(a + "\n");
+                    int i1 = Intermedio.ta1.size();
+                    String textotabla = "----------- " + "\n";
+                    for (int i = 0; i < i1; i++)
+                    {
+                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + "\t " + ((String[]) Intermedio.ta1.get(i))[1] + "\t " + ((String[]) Intermedio.ta1.get(i))[2] + "\t" + ((String[]) Intermedio.ta1.get(i))[3]+"\n";// "\t" + ((String[]) Intermedio.ta1.get(i))[4]+ "\n";
+                    }
+
+                    jTextArea2.setText(jTextArea2.getText() + textotabla);
 
                 }
             } else
