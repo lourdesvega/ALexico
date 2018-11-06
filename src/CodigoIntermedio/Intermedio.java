@@ -79,7 +79,7 @@ public class Intermedio
 
     public static Object[] creacodigo(String[] programa, String[] programaTokens, ArrayList tab, int i, String a, Object[] resul)
     {
-        String vector[] = new String[4];
+        String vector[] = new String[5];
 
         if (i < programaTokens.length)
         {
@@ -118,14 +118,14 @@ public class Intermedio
                     ArrayList taA1para = tabla(paraasig, tab);
                     ta1 = tab;
 
-                    String vectorparaasig[] = new String[4];
+                    String vectorparaasig[] = new String[5];
                     vectorparaasig[3] = "";
                     vectorparaasig[0] = (String) taA1para.get(0);
                     vectorparaasig[1] = (String) taA1para.get(1);
                     vectorparaasig[2] = (String) taA1para.get(2);
                     tab.add(vectorparaasig);
                     a = genera("\n" + taA1para.toString(), a);
-                    String vectorpara[] = new String[4];
+                    String vectorpara[] = new String[5];
                     vectorpara[0] = "";
                     vectorpara[1] = "";
                     vectorpara[2] = "";
@@ -136,7 +136,7 @@ public class Intermedio
                     ArrayList tapara = tabla(condpara, tab);
                     ta1 = tab;
                     a = codigoCondicion(tapara, a, epara);
-                    vectorpara = new String[4];
+                    vectorpara = new String[5];
                     vectorpara[0] = "";
                     vectorpara[1] = "";
                     vectorpara[2] = "";
@@ -150,21 +150,21 @@ public class Intermedio
                     ArrayList taA1para2 = tabla(paraasig2, tab);
                     ta1 = tab;
 
-                    String vectorparaasig2[] = new String[4];
+                    String vectorparaasig2[] = new String[5];
                     vectorparaasig2[3] = "";
                     vectorparaasig2[0] = (String) taA1para2.get(0);
                     vectorparaasig2[1] = (String) taA1para2.get(1);
                     vectorparaasig2[2] = (String) taA1para2.get(2);
                     tab.add(vectorparaasig2);
 
-                    vectorpara = new String[4];
+                    vectorpara = new String[5];
                     vectorpara[0] = "";
                     vectorpara[1] = "";
                     vectorpara[2] = "";
                     vectorpara[3] = epara.getInicio() + "";
                     tab.add(vectorpara);
 
-                    vectorpara = new String[4];
+                    vectorpara = new String[5];
                     vectorpara[0] = "";
                     vectorpara[1] = "";
                     vectorpara[2] = "";
@@ -192,7 +192,7 @@ public class Intermedio
                     String condA1[] = Postfijo.postfijo(exprA1);
                     ArrayList taA1 = tabla(condA1, tab);
                     ta1 = tab;
-                    String vector5[] = new String[4];
+                    String vector5[] = new String[5];
                     vector5[3] = "";
                     vector5[0] = (String) taA1.get(0);
                     vector5[1] = (String) taA1.get(1);
@@ -202,7 +202,7 @@ public class Intermedio
                     resul = creacodigo(programa, programaTokens, (ArrayList) tab, i, a, resul);
                     return resul;
                 case "T12"://SI
-                    String vectorSI[] = new String[4];
+                    String vectorSI[] = new String[5];
                     vectorSI[0] = "";
                     vectorSI[1] = "";
                     vectorSI[2] = "";
@@ -226,7 +226,7 @@ public class Intermedio
                     ta1 = tab;
                     a = codigoCondicion(ta, a, e);
                     //a = genera("goto " + e.getSSig(), a);
-                    vectorSI = new String[4];
+                    vectorSI = new String[5];
                     vectorSI[0] = "";
                     vectorSI[1] = "";
                     vectorSI[2] = "";
@@ -239,14 +239,14 @@ public class Intermedio
                     a = (String) resul[0];
                     i = (int) resul[1];
 
-                    vectorSI = new String[4];
+                    vectorSI = new String[5];
                     vectorSI[0] = "";
                     vectorSI[1] = "";
                     vectorSI[2] = "";
                     vectorSI[3] = e.getSSig() + "";
                     tab.add(vectorSI);
                     a = genera("\n go to " + e.getSSig(), a);
-                    vectorSI = new String[4];
+                    vectorSI = new String[5];
                     vectorSI[0] = "";
                     vectorSI[1] = "";
                     vectorSI[2] = "";
@@ -259,14 +259,14 @@ public class Intermedio
                         a = (String) resul[0];
                         i = (int) resul[1];
                     }
-                    vectorSI = new String[4];
+                    vectorSI = new String[5];
                     vectorSI[0] = "";
                     vectorSI[1] = "";
                     vectorSI[2] = "";
                     vectorSI[3] = "" + e.getSSig();
                     tab.add(vectorSI);
                     a = genera("\n go to " + e.getSSig(), a);
-                    vectorSI = new String[4];
+                    vectorSI = new String[5];
                     vectorSI[0] = "";
                     vectorSI[1] = "";
                     vectorSI[2] = "";
@@ -280,7 +280,7 @@ public class Intermedio
                     return resul;
 
                 case "T15"://mientras
-                    String vectorMI[] = new String[4];
+                    String vectorMI[] = new String[5];
                     vectorMI[0] = "";
                     vectorMI[1] = "";
                     vectorMI[2] = "";
@@ -290,7 +290,7 @@ public class Intermedio
                     emi.setInicio(nuevaE());
                     emi.setE1True(nuevaE());
                     emi.setE1false(nuevaE());
-                    vectorMI = new String[4];
+                    vectorMI = new String[5];
                     vectorMI[0] = "";
                     vectorMI[1] = "";
                     vectorMI[2] = "";
@@ -311,7 +311,7 @@ public class Intermedio
                     ArrayList tami = tabla(condmi, tab);
                     ta1 = tab;
                     a = codigoCondicion(tami, a, emi);
-                    vectorMI = new String[4];
+                    vectorMI = new String[5];
                     vectorMI[0] = "";
                     vectorMI[1] = "";
                     vectorMI[2] = "";
@@ -322,7 +322,7 @@ public class Intermedio
                     resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
                     a = (String) resul[0];
                     i = (int) resul[1];
-                    vectorMI = new String[4];
+                    vectorMI = new String[5];
                     vectorMI[0] = "";
                     vectorMI[1] = "";
                     vectorMI[2] = "";
@@ -330,7 +330,7 @@ public class Intermedio
                     tab.add(vectorMI);
                     a = genera("\n go to" + emi.getInicio(), a);
 
-                    vectorMI = new String[4];
+                    vectorMI = new String[5];
                     vectorMI[0] = "";
                     vectorMI[1] = "";
                     vectorMI[2] = "";
@@ -354,7 +354,7 @@ public class Intermedio
                     break;
                 case "T20"://CLASE
                     //verificar clase
-                    String vector3[] = new String[4];
+                    String vector3[] = new String[5];
                     vector3[0] = programa[i + 1];
                     vector3[1] = "Clase";
                     vector3[2] = "";
@@ -367,7 +367,7 @@ public class Intermedio
                     a = (String) resul[0];
                     i = (int) resul[1];
 
-                    String vector4[] = new String[4];
+                    String vector4[] = new String[5];
                     vector4[1] = "Clase";
                     vector4[2] = "";
                     vector4[3] = "Fin";
@@ -380,7 +380,7 @@ public class Intermedio
                     return resul;
                 case "T23"://Metodo
                     //verificar metodo
-                    String vectorME[] = new String[4];
+                    String vectorME[] = new String[5];
                     vectorME[0] = programa[i + 1];
                     vectorME[1] = "Metodo";
                     vectorME[2] = "";
@@ -397,7 +397,7 @@ public class Intermedio
                     a = (String) resul[0];
                     i = (int) resul[1];
 
-                    vectorME = new String[4];
+                    vectorME = new String[5];
                     vectorME[0] = "";
                     vectorME[1] = "Metodo";
                     vectorME[2] = "";
@@ -415,6 +415,33 @@ public class Intermedio
                     resul[1] = i;
 
                     return resul;
+                case "T11":
+                    ++i;
+                    String imprime = "";
+                    int jim;
+                    do
+                    {
+                       imprime += programa[i] + ";";
+                        i = i + 1;
+                        jim = i + 1;
+
+                    } while (!programaTokens[i].equals("T12") && !programa[i].equals(":") && !programaTokens[i].equals("T1") && !programaTokens[i].equals("T15") && !(programa[i].equals("T50") && programa[jim].equals("T50")) && !(programa[i].equals("T51") && programa[jim].equals("T50")) && !(programa[i].equals("T52") && programa[jim].equals("T50")) && !(programa[i].equals("T6") && programa[jim].equals("T50")));
+
+                    String exprIm[] = imprime.split(";");
+                    String condIm[] = Postfijo.postfijo(exprIm);
+                    ArrayList taIm = tabla(condIm, tab);
+                    ta1 = tab;
+                    String vector7[] = new String[5];
+                    vector7[2] = "Imprimir";
+                    vector7[0] = (String) taIm.get(0);
+                    vector7[1] = "";
+                    vector7[3] = "";
+
+                    tab.add(vector7);
+                    a = genera("\n" + taIm.toString(), a);
+                    resul = creacodigo(programa, programaTokens, (ArrayList) tab, i, a, resul);
+                    return resul;
+
 
             }
 
@@ -454,7 +481,7 @@ public class Intermedio
 
                 if (or.equals("&&"))
                 {
-                    String[] vector = new String[4];
+                    String[] vector = new String[5];
                     vector[0] = "";
                     vector[1] = "";
                     vector[2] = "";
@@ -479,7 +506,7 @@ public class Intermedio
 
                 if (or.equals("||"))
                 {
-                    String[] vector1 = new String[4];
+                    String[] vector1 = new String[5];
                     vector1[0] = "";
                     vector1[1] = "";
                     vector1[2] = "";
@@ -518,13 +545,13 @@ public class Intermedio
                 con2.remove(con2.size() - 1);
                 if (or.equals("&&"))
                 {
-                    String[] vector = new String[4];
+                    String[] vector = new String[5];
                     vector[0] = (String) ta.get(0);
                     vector[1] = (String) ta.get(1);
                     vector[2] = (String) ta.get(2);
                     vector[3] = e.getE1True() + "";
 
-                    String[] vector1 = new String[4];
+                    String[] vector1 = new String[5];
                     vector1[0] = "";
                     vector1[1] = "";
                     vector1[2] = "";
@@ -556,7 +583,7 @@ public class Intermedio
 
                     a = codigoCondicion(con1, a, e1);
 
-                    String[] vector1 = new String[4];
+                    String[] vector1 = new String[5];
                     vector1[0] = "";
                     vector1[1] = "";
                     vector1[2] = "";
@@ -573,12 +600,12 @@ public class Intermedio
             }
         } else
         {
-            String[] vector = new String[4];
+            String[] vector = new String[5];
             vector[0] = (String) ta.get(0);
             vector[1] = (String) ta.get(1);
             vector[2] = (String) ta.get(2);
             vector[3] = e.getE1True() + "";
-            String[] vector1 = new String[4];
+            String[] vector1 = new String[5];
             vector1[0] = "";
             vector1[1] = "";
             vector1[2] = "";

@@ -548,14 +548,14 @@ public class Interfaz2 extends javax.swing.JFrame
                     //i = (int) resul[1];
                     CodigoIntermedio.Intermedio.etiqueta = 0;
                     TablaTemporales.temporal = 0;
-                    //System.out.println(a);
+                    System.out.println(a);
                     jTextArea2.setText("");
                     jTextArea2.setText(a + "\n");
                     int i1 = Intermedio.ta1.size();
                     String textotabla = "----------- " + "\n";
                     for (int i = 0; i < i1; i++)
                     {
-                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + "\t " + ((String[]) Intermedio.ta1.get(i))[1] + "\t " + ((String[]) Intermedio.ta1.get(i))[2] + "\t" + ((String[]) Intermedio.ta1.get(i))[3] + "\n";
+                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + "\t " + ((String[]) Intermedio.ta1.get(i))[1] + "\t " + ((String[]) Intermedio.ta1.get(i))[2] + "\t" + ((String[]) Intermedio.ta1.get(i))[3]+"\n";// "\t" + ((String[]) Intermedio.ta1.get(i))[4]+ "\n";
                     }
 
                     jTextArea2.setText(jTextArea2.getText() + textotabla);
