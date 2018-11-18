@@ -536,22 +536,22 @@ public class Bloques
         {
             try
             {
-                int busca =Integer.parseInt(((String[]) tabla.get(i))[3].trim());
-                
-                if(((String[]) tabla.get(i))[2].trim().equals("==")||((String[]) tabla.get(i))[2].trim().equals("<")||((String[]) tabla.get(i))[2].trim().equals(">")||((String[]) tabla.get(i))[2].trim().equals(">=")||((String[]) tabla.get(i))[2].trim().equals("<=")||((String[]) tabla.get(i))[2].trim().equals(">=")||((String[]) tabla.get(i))[2].trim().equals("!=")){
-                
-                      ((String[]) tabla.get(i+1))[4] = "1";
-                
+                int busca = Integer.parseInt(((String[]) tabla.get(i))[3].trim());
+
+                if (((String[]) tabla.get(i))[2].trim().equals("==") || ((String[]) tabla.get(i))[2].trim().equals("<") || ((String[]) tabla.get(i))[2].trim().equals(">") || ((String[]) tabla.get(i))[2].trim().equals(">=") || ((String[]) tabla.get(i))[2].trim().equals("<=") || ((String[]) tabla.get(i))[2].trim().equals(">=") || ((String[]) tabla.get(i))[2].trim().equals("!="))
+                {
+
+                    ((String[]) tabla.get(i + 1))[4] = "1";
+
                 }
                 for (int j = 1; j < tabla.size(); j++)
                 {
-                    if(((String[]) tabla.get(j))[3].trim().equals(busca+":")){
-                        
-                      ((String[]) tabla.get(j))[4] = "1";
+                    if (((String[]) tabla.get(j))[3].trim().equals(busca + ":"))
+                    {
+
+                        ((String[]) tabla.get(j))[4] = "1";
                     }
                 }
-
-              
 
             } catch (Exception e)
             {

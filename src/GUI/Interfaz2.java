@@ -7,6 +7,7 @@ package GUI;
 
 import CodigoIntermedio.Intermedio;
 import LulúPost.TablaTemporales;
+import static Optimizacion.Bloques.Optimizar;
 import static Optimizacion.Bloques.asignabloques;
 import gramatica.Gramatica;
 import gramatica.GramaticaMatriz;
@@ -631,17 +632,17 @@ public class Interfaz2 extends javax.swing.JFrame
                 {
                     bebe.add(Intermedio.ta1.get(a));
                     a++;
-                    
+
                     if (a >= Intermedio.ta1.size())
                     {
                         break;
                     }
-                    if (((String[]) Intermedio.ta1.get(a))[4]!=null)
+                    if (((String[]) Intermedio.ta1.get(a))[4] != null)
                     {
                         break;
 
-                    } 
-                   
+                    }
+
                 } while (true);
 
                 codigo.add(bebe);
@@ -653,8 +654,11 @@ public class Interfaz2 extends javax.swing.JFrame
             }
 
         } while (true);
-
-      
+        ArrayList codigooptimo = new ArrayList();
+        for (int i = 0; i < codigo.size(); i++)
+        {
+            codigooptimo.add(Optimizar((ArrayList) codigo.get(i)));
+        }
 
         jTin.setText(textotabla);
         //  Intermedio.ta1;
