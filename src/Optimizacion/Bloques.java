@@ -5,17 +5,20 @@
  */
 package Optimizacion;
 
+import CodigoIntermedio.Intermedio;
 import java.util.ArrayList;
 
 /**
  *
  * @author barcl
  */
-public class Bloques {
+public class Bloques
+{
 
     private static boolean op = false;
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         ArrayList arrl = new ArrayList();
         /* String[][] a = {
             {"a", "Clase", " ", "Inicio"},
@@ -51,18 +54,37 @@ public class Bloques {
             {"", "Metodo", " ", "Fin"},
             {"", "Clase", " ", "Fin"},};*/
 
-        String[][] a = {
+        String[][] a =
+        {
             // {"88.9", "-2.89", "*", "T1"}, 
-            {"4", "2", "-", "T1"},
-            {"T1", "2", "/", "T2"},
-            {"a", "T2", "*", "T3"},
-            {"T3", "T1", "*", "T4"},
-            {"T4", "b", "+", "T5"},
-            {"T3", "T1", "*", "T6"},
-            {"T4", "b", "+", "T7"},
-            {"T5", "T7", "*", "c"}};
+            {
+                "4", "2", "-", "T1"
+            },
+            {
+                "T1", "2", "/", "T2"
+            },
+            {
+                "a", "T2", "*", "T3"
+            },
+            {
+                "T3", "T1", "*", "T4"
+            },
+            {
+                "T4", "b", "+", "T5"
+            },
+            {
+                "T3", "T1", "*", "T6"
+            },
+            {
+                "T4", "b", "+", "T7"
+            },
+            {
+                "T5", "T7", "*", "c"
+            }
+        };
         String vector[];
-        for (int i = 0; i < a.length; i++) {
+        for (int i = 0; i < a.length; i++)
+        {
             vector = new String[4];
             vector[0] = a[i][0];
             vector[1] = a[i][1];
@@ -70,29 +92,34 @@ public class Bloques {
             vector[3] = a[i][3];
             arrl.add(vector);
         }
-        
-        arrl=Optimizar(arrl);
-       //arrl = empTemp(arrl);
 
-        for (int i = 0; i < arrl.size(); i++) {
+        arrl = Optimizar(arrl);
+        //arrl = empTemp(arrl);
+
+        for (int i = 0; i < arrl.size(); i++)
+        {
 
             System.out.println(((String[]) arrl.get(i))[0] + "\t" + ((String[]) arrl.get(i))[1] + "\t" + ((String[]) arrl.get(i))[2] + "\t" + ((String[]) arrl.get(i))[3]);
         }
         // Temporales(arrl);
     }
 
-    public static ArrayList Temporales(ArrayList cuad) {
+    public static ArrayList Temporales(ArrayList cuad)
+    {
 
         System.out.println("Cuadruples Temporales");
         System.out.println("-------------------");
         String vector[];
         ArrayList temp = new ArrayList();
-        for (int i = 0; i < cuad.size(); i++) {
-            if (((((String[]) cuad.get(i))[3]).charAt(0) + "").equals("T") || ((((String[]) cuad.get(i))[2]).charAt(0) + "").equals("=")) {
+        for (int i = 0; i < cuad.size(); i++)
+        {
+            if (((((String[]) cuad.get(i))[3]).charAt(0) + "").equals("T") || ((((String[]) cuad.get(i))[2]).charAt(0) + "").equals("="))
+            {
                 temp.add(cuad.get(i));
                 vector = (String[]) cuad.get(i);
                 System.out.println(vector[0] + "\t" + vector[1] + "\t" + vector[2] + "\t" + vector[3]);
-            } else {
+            } else
+            {
                 break;
             }
         }
@@ -101,8 +128,10 @@ public class Bloques {
 
     }
 
-    public static ArrayList Optimizar(ArrayList cuad) {
-        do {
+    public static ArrayList Optimizar(ArrayList cuad)
+    {
+        do
+        {
             op = false;
             cuad = expcomunes(cuad);
             cuad = eExpre(cuad);
@@ -113,18 +142,21 @@ public class Bloques {
         return cuad;
     }
 
-    
     /*¿Cómo resolver :c*/
-    public static ArrayList expcomunes(ArrayList cuad) {
+    public static ArrayList expcomunes(ArrayList cuad)
+    {
         //op=false;
         String valoran = "";
         String valornue = "";
 
-        for (int i = 0; i < cuad.size() - 1; i++) {
-            for (int j = i + 1; j < cuad.size() - 1; j++) {
+        for (int i = 0; i < cuad.size() - 1; i++)
+        {
+            for (int j = i + 1; j < cuad.size() - 1; j++)
+            {
                 if (((String[]) cuad.get(i))[0].equals(((String[]) cuad.get(j))[0])
                         && ((String[]) cuad.get(i))[1].equals(((String[]) cuad.get(j))[1])
-                        && ((String[]) cuad.get(i))[2].equals(((String[]) cuad.get(j))[2])) {
+                        && ((String[]) cuad.get(i))[2].equals(((String[]) cuad.get(j))[2]))
+                {
                     valoran = ((String[]) cuad.get(j))[3];
                     valornue = ((String[]) cuad.get(i))[3];
                     cuad.remove(j);
@@ -136,16 +168,20 @@ public class Bloques {
         return cuad;
     }
 
-    public static ArrayList sustituir(ArrayList cuad, String valoran, String valornue) {
+    public static ArrayList sustituir(ArrayList cuad, String valoran, String valornue)
+    {
         String vector[];
-        for (int k = 0; k < cuad.size(); k++) {
-            if (((String[]) cuad.get(k))[0].equals(valoran)) {
+        for (int k = 0; k < cuad.size(); k++)
+        {
+            if (((String[]) cuad.get(k))[0].equals(valoran))
+            {
                 op = true;
                 vector = (String[]) cuad.get(k);
                 vector[0] = valornue;
                 cuad.set(k, vector);
             }
-            if (((String[]) cuad.get(k))[1].equals(valoran)) {
+            if (((String[]) cuad.get(k))[1].equals(valoran))
+            {
                 op = true;
                 vector = (String[]) cuad.get(k);
                 vector[1] = valornue;
@@ -155,7 +191,8 @@ public class Bloques {
         return cuad;
     }
 
-    public static ArrayList eExpre(ArrayList cuad) {
+    public static ArrayList eExpre(ArrayList cuad)
+    {
 
         String vector[];
         boolean entero1 = false;
@@ -167,22 +204,27 @@ public class Bloques {
         int num1Int = 0;
         int num2Int = 0;
 
-        for (int i = 0; i < cuad.size(); i++) {
+        for (int i = 0; i < cuad.size(); i++)
+        {
             // System.out.println("tamaño cuad " + cuad.size());
-           // vector = new String[4];
+            // vector = new String[4];
             vector = (String[]) cuad.get(i);
 
-            try {
+            try
+            {
                 num1Int = Integer.parseInt(vector[0]);
                 entero1 = true;
                 //System.out.println("Número 1 entero");
-            } catch (NumberFormatException e) {
-                try {
+            } catch (NumberFormatException e)
+            {
+                try
+                {
                     num1Dou = Double.parseDouble(vector[0]);
                     entero1 = false;
                     double1 = true;
                     // System.out.println("Número 1 double");
-                } catch (NumberFormatException b) {
+                } catch (NumberFormatException b)
+                {
                     // System.out.println("No num 1");
                     entero1 = false;
                     double1 = false;
@@ -190,17 +232,21 @@ public class Bloques {
 
             }
 
-            try {
+            try
+            {
                 num2Int = Integer.parseInt(vector[1]);
                 entero2 = true;
                 //System.out.println("Número 2 entero");
-            } catch (NumberFormatException e) {
-                try {
+            } catch (NumberFormatException e)
+            {
+                try
+                {
                     num2Dou = Double.parseDouble(vector[1]);
                     entero2 = false;
                     double2 = true;
                     // System.out.println("Número 2 double");
-                } catch (NumberFormatException b) {
+                } catch (NumberFormatException b)
+                {
                     entero2 = false;
                     double2 = false;
                     //System.out.println("No num 2");
@@ -208,20 +254,25 @@ public class Bloques {
 
             }
 
-            if (entero1 == true && entero2 == true) {
+            if (entero1 == true && entero2 == true)
+            {
                 op = true;
                 // System.out.println("aqui 4");
-                if (vector[2].equals("+")) {
+                if (vector[2].equals("+"))
+                {
                     num1Int = (num1Int) + (num2Int);
                 }
-                if (vector[2].equals("-")) {
+                if (vector[2].equals("-"))
+                {
                     num1Int = (num1Int) - (num2Int);
 
                 }
-                if (vector[2].equals("*")) {
+                if (vector[2].equals("*"))
+                {
                     num1Int = num1Int * num2Int;
                 }
-                if (vector[2].equals("/")) {
+                if (vector[2].equals("/"))
+                {
                     num1Int = num1Int / num2Int;
                 }
                 vector[0] = vector[3];
@@ -229,21 +280,27 @@ public class Bloques {
                 vector[2] = "=";
                 vector[3] = "";
                 cuad.set(i, vector);
-            } else {
-                if (entero1 == true && double2 == true) {
+            } else
+            {
+                if (entero1 == true && double2 == true)
+                {
                     op = true;
                     // System.out.println("aqui 3");
-                    if (vector[2].equals("+")) {
+                    if (vector[2].equals("+"))
+                    {
                         num2Dou = num1Int + num2Dou;
                     }
-                    if (vector[2].equals("-")) {
+                    if (vector[2].equals("-"))
+                    {
                         num2Dou = num1Int - num2Dou;
 
                     }
-                    if (vector[2].equals("*")) {
+                    if (vector[2].equals("*"))
+                    {
                         num2Dou = num1Int * num2Dou;
                     }
-                    if (vector[2].equals("/")) {
+                    if (vector[2].equals("/"))
+                    {
                         num2Dou = num1Int / num2Dou;
                     }
                     vector[0] = vector[3];
@@ -251,21 +308,27 @@ public class Bloques {
                     vector[2] = "=";
                     vector[3] = "";
                     cuad.set(i, vector);
-                } else {
-                    if (double1 == true && entero2 == true) {
+                } else
+                {
+                    if (double1 == true && entero2 == true)
+                    {
                         op = true;
                         //  System.out.println("aquí 2");
-                        if (vector[2].equals("+")) {
+                        if (vector[2].equals("+"))
+                        {
                             num1Dou = num1Dou + num2Int;
                         }
-                        if (vector[2].equals("-")) {
+                        if (vector[2].equals("-"))
+                        {
                             num1Dou = num1Dou - num2Int;
 
                         }
-                        if (vector[2].equals("*")) {
+                        if (vector[2].equals("*"))
+                        {
                             num1Dou = num1Dou * num2Int;
                         }
-                        if (vector[2].equals("/")) {
+                        if (vector[2].equals("/"))
+                        {
                             num1Dou = num1Dou / num2Int;
                         }
                         vector[0] = vector[3];
@@ -273,22 +336,28 @@ public class Bloques {
                         vector[2] = "=";
                         vector[3] = "";
                         cuad.set(i, vector);
-                    } else {
-                        if (double1 == true && double2 == true) {
+                    } else
+                    {
+                        if (double1 == true && double2 == true)
+                        {
                             op = true;
                             // System.out.println("aquí");
-                            if (vector[2].equals("+")) {
+                            if (vector[2].equals("+"))
+                            {
                                 num1Dou = num1Dou + num2Dou;
                             }
-                            if (vector[2].equals("-")) {
+                            if (vector[2].equals("-"))
+                            {
                                 num1Dou = num1Dou - num2Dou;
 
                             }
-                            if (vector[2].equals("*")) {
+                            if (vector[2].equals("*"))
+                            {
                                 num1Dou = (num1Dou) * (num2Dou);
                                 System.out.println("num " + num1Dou);
                             }
-                            if (vector[2].equals("/")) {
+                            if (vector[2].equals("/"))
+                            {
                                 num1Dou = num1Dou / num2Dou;
                             }
                             vector[0] = vector[3];
@@ -304,23 +373,29 @@ public class Bloques {
         return cuad;
     }
 
-    public static ArrayList pCopias(ArrayList cuad) {
+    public static ArrayList pCopias(ArrayList cuad)
+    {
         String valorn = "";
         String reem = "";
         String vector[];
-        for (int i = 0; i < cuad.size(); i++) {
-            if (((String[]) cuad.get(i))[3].equals("") && ((String[]) cuad.get(i))[2].equals("=")) {
+        for (int i = 0; i < cuad.size(); i++)
+        {
+            if (((String[]) cuad.get(i))[3].equals("") && ((String[]) cuad.get(i))[2].equals("="))
+            {
                 valorn = ((String[]) cuad.get(i))[1];
                 reem = ((String[]) cuad.get(i))[0];
                 cuad.remove(i);
-                for (int j = 0; j < cuad.size(); j++) {
-                    if (((String[]) cuad.get(j))[1].equals(reem)) {
+                for (int j = 0; j < cuad.size(); j++)
+                {
+                    if (((String[]) cuad.get(j))[1].equals(reem))
+                    {
                         op = true;
                         vector = (String[]) cuad.get(j);
                         vector[1] = valorn;
                         cuad.set(j, vector);
                     }
-                    if (((String[]) cuad.get(j))[0].equals(reem)) {
+                    if (((String[]) cuad.get(j))[0].equals(reem))
+                    {
                         op = true;
                         vector = (String[]) cuad.get(j);
                         vector[0] = valorn;
@@ -332,11 +407,14 @@ public class Bloques {
         return cuad;
     }
 
-    public static ArrayList transAl(ArrayList cuad) {
+    public static ArrayList transAl(ArrayList cuad)
+    {
         String vector[];
-        for (int i = 0; i < cuad.size(); i++) {
+        for (int i = 0; i < cuad.size(); i++)
+        {
             if ((((String[]) cuad.get(i))[0].equals("0") && ((String[]) cuad.get(i))[2].equals("+"))
-                    || (((String[]) cuad.get(i))[0].equals("1") && ((String[]) cuad.get(i))[2].equals("*"))) {
+                    || (((String[]) cuad.get(i))[0].equals("1") && ((String[]) cuad.get(i))[2].equals("*")))
+            {
                 op = true;
                 vector = (String[]) cuad.get(i);
                 vector[0] = vector[3];
@@ -346,7 +424,8 @@ public class Bloques {
             }
             if ((((String[]) cuad.get(i))[1].equals("0") && (((String[]) cuad.get(i))[2].equals("+") || ((String[]) cuad.get(i))[2].equals("-")))
                     || (((String[]) cuad.get(i))[1].equals("1") && ((String[]) cuad.get(i))[2].equals("*"))
-                    || (((String[]) cuad.get(i))[1].equals("1") && ((String[]) cuad.get(i))[2].equals("/"))) {
+                    || (((String[]) cuad.get(i))[1].equals("1") && ((String[]) cuad.get(i))[2].equals("/")))
+            {
                 op = true;
                 vector = (String[]) cuad.get(i);
                 vector[1] = vector[0];
@@ -355,7 +434,8 @@ public class Bloques {
                 vector[3] = "";
                 cuad.set(i, vector);
             }
-            if ((((String[]) cuad.get(i))[0].equals("0") && ((String[]) cuad.get(i))[2].equals("*")) || (((String[]) cuad.get(i))[1].equals("0") && ((String[]) cuad.get(i))[2].equals("*")) || (((String[]) cuad.get(i))[0].equals("0") && ((String[]) cuad.get(i))[2].equals("/"))) {
+            if ((((String[]) cuad.get(i))[0].equals("0") && ((String[]) cuad.get(i))[2].equals("*")) || (((String[]) cuad.get(i))[1].equals("0") && ((String[]) cuad.get(i))[2].equals("*")) || (((String[]) cuad.get(i))[0].equals("0") && ((String[]) cuad.get(i))[2].equals("/")))
+            {
                 op = true;
                 vector = (String[]) cuad.get(i);
                 vector[0] = vector[3];
@@ -368,11 +448,14 @@ public class Bloques {
         return cuad;
     }
 
-    public static ArrayList redFuer(ArrayList cuad) {
+    public static ArrayList redFuer(ArrayList cuad)
+    {
         // op=false;
         String vector[];
-        for (int i = 0; i < cuad.size(); i++) {
-            if (((String[]) cuad.get(i))[0].equals("2") && ((String[]) cuad.get(i))[2].equals("*")) {
+        for (int i = 0; i < cuad.size(); i++)
+        {
+            if (((String[]) cuad.get(i))[0].equals("2") && ((String[]) cuad.get(i))[2].equals("*"))
+            {
                 op = true;
                 vector = (String[]) cuad.get(i);
                 vector[0] = vector[1];
@@ -380,7 +463,8 @@ public class Bloques {
                 cuad.set(i, vector);
 
             }
-            if (((String[]) cuad.get(i))[1].equals("2") && ((String[]) cuad.get(i))[2].equals("*")) {
+            if (((String[]) cuad.get(i))[1].equals("2") && ((String[]) cuad.get(i))[2].equals("*"))
+            {
                 op = true;
                 vector = (String[]) cuad.get(i);
                 vector[1] = vector[0];
@@ -391,36 +475,45 @@ public class Bloques {
         return cuad;
     }
 
-    public static ArrayList empTemp(ArrayList cuad) {
+    public static ArrayList empTemp(ArrayList cuad)
+    {
         int numT = 1;
         String temporales = "T" + numT;
         String ant = "";
         String vector[];
-        for (int i = 0; i < cuad.size(); i++) {
-            if (i == 0) {
+        for (int i = 0; i < cuad.size(); i++)
+        {
+            if (i == 0)
+            {
                 ant = ((String[]) cuad.get(i))[3];
                 vector = (String[]) cuad.get(i);
                 vector[3] = temporales;
                 cuad.set(i, vector);
-                
-            } else {
-                if (((String[]) cuad.get(i))[0].equals(ant) || ((String[]) cuad.get(i))[1].equals(ant)) {
-                    if (((String[]) cuad.get(i))[0].equals(ant) && ((String[]) cuad.get(i))[1].equals(ant)) {
+
+            } else
+            {
+                if (((String[]) cuad.get(i))[0].equals(ant) || ((String[]) cuad.get(i))[1].equals(ant))
+                {
+                    if (((String[]) cuad.get(i))[0].equals(ant) && ((String[]) cuad.get(i))[1].equals(ant))
+                    {
                         ant = ((String[]) cuad.get(i))[3];
                         vector = (String[]) cuad.get(i);
                         vector[3] = temporales;
                         vector[1] = temporales;
                         vector[0] = temporales;
                         cuad.set(i, vector);
-                    } else {
-                        if (((String[]) cuad.get(i))[0].equals(ant)) {
+                    } else
+                    {
+                        if (((String[]) cuad.get(i))[0].equals(ant))
+                        {
                             ant = ((String[]) cuad.get(i))[3];
                             vector = (String[]) cuad.get(i);
                             vector[3] = temporales;
                             vector[0] = temporales;
                             cuad.set(i, vector);
                         }
-                        if (((String[]) cuad.get(i))[1].equals(ant)) {
+                        if (((String[]) cuad.get(i))[1].equals(ant))
+                        {
                             ant = ((String[]) cuad.get(i))[3];
                             vector = (String[]) cuad.get(i);
                             vector[3] = temporales;
@@ -434,6 +527,38 @@ public class Bloques {
         }
 
         return cuad;
+    }
+
+    public static void asignabloques(ArrayList tabla)
+    {
+        ((String[]) tabla.get(0))[4] = "1";
+        for (int i = 1; i < tabla.size(); i++)
+        {
+            try
+            {
+                int busca =Integer.parseInt(((String[]) tabla.get(i))[3].trim());
+                
+                if(((String[]) tabla.get(i))[2].trim().equals("==")||((String[]) tabla.get(i))[2].trim().equals("<")||((String[]) tabla.get(i))[2].trim().equals(">")||((String[]) tabla.get(i))[2].trim().equals(">=")||((String[]) tabla.get(i))[2].trim().equals("<=")||((String[]) tabla.get(i))[2].trim().equals(">=")||((String[]) tabla.get(i))[2].trim().equals("!=")){
+                
+                      ((String[]) tabla.get(i+1))[4] = "1";
+                
+                }
+                for (int j = 1; j < tabla.size(); j++)
+                {
+                    if(((String[]) tabla.get(j))[3].trim().equals(busca+":")){
+                        
+                      ((String[]) tabla.get(j))[4] = "1";
+                    }
+                }
+
+              
+
+            } catch (Exception e)
+            {
+
+            }
+        }
+
     }
 
 }
