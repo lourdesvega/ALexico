@@ -110,7 +110,7 @@
           <Properties>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="Clase a:&#xa;Metodo b(Entero n):&#xa;Entero num=10+2+4+78+7+(4+(4+(2+(1+(4+(4+5)+8)+8)+7)+7)+7)&#xa;&#xa;:&#xa;&#xa;:&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;"/>
+            <Property name="text" type="java.lang.String" value="Clase a: &#xa;Metodo b(): &#xa;Si(n&gt;5 ): &#xa;Para(i=1;i&lt;10;i=i+1): &#xa;Mientras(w&gt;0): &#xa;&#xa;&#xa;&#xa;:&#xa;:&#xa;:&#xa;&#xa;:&#xa;:&#xa;"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
@@ -327,8 +327,8 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jScrollPane11" min="-2" pref="446" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane12" min="-2" pref="375" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="253" max="-2" attributes="0"/>
+                      <Component id="jScrollPane12" min="-2" pref="566" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Component id="jScrollPane4" min="-2" pref="349" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane9" min="-2" max="-2" attributes="0"/>
@@ -354,7 +354,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jScrollPane11" min="-2" pref="283" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane12" min="-2" pref="316" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane12" min="-2" pref="271" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>

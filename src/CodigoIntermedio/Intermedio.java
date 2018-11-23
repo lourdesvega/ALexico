@@ -186,7 +186,7 @@ public class Intermedio
                         i = i + 1;
                         j1 = i + 1;
 
-                    } while (!programaTokens[i].equals("T12") && !programa[i].equals(":") && !programaTokens[i].equals("T1") && !programaTokens[i].equals("T15") && !(programa[i].equals("T50") && programa[j1].equals("T50")) && !(programa[i].equals("T51") && programa[j1].equals("T50")) && !(programa[i].equals("T52") && programa[j1].equals("T50")) && !(programa[i].equals("T6") && programa[j1].equals("T50")));
+                    } while (!programaTokens[j1].equals("T9")&&!programaTokens[i].equals("T12")&&!programaTokens[i].equals("T14") &&!programaTokens[i].equals("T11") && !programa[i].equals(":") && !programaTokens[i].equals("T1") && !programaTokens[i].equals("T15") && !(programa[i].equals("T50") && programa[j1].equals("T50")) && !(programa[i].equals("T51") && programa[j1].equals("T50")) && !(programa[i].equals("T52") && programa[j1].equals("T50")) && !(programa[i].equals("T6") && programa[j1].equals("T50")));
 
                     String exprA1[] = asignacion1.split(";");
                     String condA1[] = Postfijo.postfijo(exprA1);
@@ -194,10 +194,21 @@ public class Intermedio
                     ta1 = tab;
                     String vector5[] = new String[5];
                     vector5[3] = "";
+                    
+                    if(condA1.length==1){
+                    vector5[0] = (String) taA1.get(0);
+                    vector5[1] = "0";
+                    vector5[2] = "=";
+                    tab.add(vector5);
+                        
+                    }else{
                     vector5[0] = (String) taA1.get(0);
                     vector5[1] = (String) taA1.get(1);
                     vector5[2] = (String) taA1.get(2);
-                    tab.add(vector5);
+                    tab.add(vector5); 
+                    
+                    }
+                   
                     a = genera("\n" + taA1.toString(), a);
                     resul = creacodigo(programa, programaTokens, (ArrayList) tab, i, a, resul);
                     return resul;
@@ -360,7 +371,6 @@ public class Intermedio
                     vector3[2] = "";
                     vector3[3] = "Inicio";
                     tab.add(vector3);
-
                     a = genera(programa[i] + " " + programa[++i], a);
                     ++i;
                     resul = creacodigo(programa, programaTokens, (ArrayList) tab, ++i, a, resul);
@@ -368,6 +378,7 @@ public class Intermedio
                     i = (int) resul[1];
 
                     String vector4[] = new String[5];
+                    vector4[0] = "";
                     vector4[1] = "Clase";
                     vector4[2] = "";
                     vector4[3] = "Fin";
@@ -381,7 +392,7 @@ public class Intermedio
                 case "T23"://Metodo
                     //verificar metodo
                     String vectorME[] = new String[5];
-                    vectorME[0] = programa[i + 1];
+                    vectorME[0] = "";
                     vectorME[1] = "Metodo";
                     vectorME[2] = "";
                     vectorME[3] = "Inicio";
