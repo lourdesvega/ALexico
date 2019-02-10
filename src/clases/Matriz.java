@@ -141,7 +141,9 @@ public class Matriz
 //        {
 //            "T27", "Nuevo"
 //        }
-
+,       {
+            "T80", "Leer"
+        }
     };
     public String matriz_operadores_aritmeticos[][] =
     {

@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import clases.Matriz;
 import clases.SeparaToken;
 import java.util.ArrayList;
+import ensamblador.*;
 
 /**
  *
@@ -56,6 +57,8 @@ public class Interfaz2 extends javax.swing.JFrame
 
     String tokens[] = null;
     String valores[] = null;
+
+    public static ArrayList parametros = new ArrayList();
 
     public Interfaz2()
     {
@@ -105,17 +108,18 @@ public class Interfaz2 extends javax.swing.JFrame
         jScrollPane11 = new javax.swing.JScrollPane();
         jTin = new javax.swing.JTextArea();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        ensamblador = new javax.swing.JTextArea();
         jScrollPane10 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("Clase a: \nMetodo b(): \nSi(n>5 ): \nPara(i=1;i<10;i=i+1): \nMientras(w>0): \n\n\n\n:\n:\n:\n\n:\n:\n");
+        jTextArea1.setText("Clase a: \nMetodo b(): \nImprimir(\"Leer n:\")\n\nEntero i=0\nEntero n=Leer()\nEntero k=n+25+(11+2)-1+(4+(11-((14+14)-78)))+(15+33)\nImprimir(\"Leer j:\")\nEntero j=Leer()\nSi(n>5 ): \nPara(i=1;i<j;i=i+1): \nImprimir(i)\n\n:\n:\n:\n\n:\n:\n");
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Abrir");
@@ -283,9 +287,9 @@ public class Interfaz2 extends javax.swing.JFrame
         jTin.setRows(5);
         jScrollPane11.setViewportView(jTin);
 
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jScrollPane12.setViewportView(jTextArea3);
+        ensamblador.setColumns(20);
+        ensamblador.setRows(5);
+        jScrollPane12.setViewportView(ensamblador);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -347,34 +351,45 @@ public class Interfaz2 extends javax.swing.JFrame
             }
         });
 
+        jButton8.setText("Ensamblador");
+        jButton8.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(191, 191, 191)
+                        .addGap(450, 450, 450)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
                         .addComponent(jButton3)
                         .addGap(201, 201, 201)
                         .addComponent(jButton2))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton5)
                                 .addGap(55, 55, 55)
                                 .addComponent(jButton6)
                                 .addGap(29, 29, 29)
-                                .addComponent(jButton7))
+                                .addComponent(jButton7)
+                                .addGap(47, 47, 47)
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 233, Short.MAX_VALUE)
                 .addComponent(jButton4)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -386,24 +401,25 @@ public class Interfaz2 extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton3)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)
+                            .addComponent(jButton4))
                         .addGap(39, 39, 39)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6)
-                    .addComponent(jButton7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -551,7 +567,242 @@ public class Interfaz2 extends javax.swing.JFrame
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton6ActionPerformed
     {//GEN-HEADEREND:event_jButton6ActionPerformed
+        parametros = new ArrayList();
+        Matriz claseMa = new Matriz();
+        String[] tabla = claseMa.crea(jTextArea1);
+        modelo = new DefaultTableModel(null, encabe);
+        jTable1.setModel(modelo);
+        if (tabla != null)
+        {
+            String t[][] = llenar(tabla);
+            t = claseMa.token(t);
+            if (t != null)
+            {
+                t = claseMa.a(t);
+                String r[][] = SeparaToken.cadena(t);
+                tokens = r[0];
+                valores = r[1];
+                modelo = new DefaultTableModel(t, encabe);
+                jTable1.setModel(modelo);
+                modelo1 = new DefaultTableModel(null, encabe1);
+                jTable2.setModel(modelo1);
+                if (tokens != null)
+                {
+                    ArrayList tab = new ArrayList();
+                    String a = "";
+                    Object resul[] =
+                    {
+                        "", 0
+                    };
+                    CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a, resul);
+                    a = (String) resul[0];
+                    //i = (int) resul[1];
+                    CodigoIntermedio.Intermedio.etiqueta = 0;
+                    TablaTemporales.temporal = 0;
+                    System.out.println(a);
+                    jTextArea2.setText("");
+                    jTextArea2.setText(a + "\n");
+                    int i1 = Intermedio.ta1.size();
+                    String textotabla = "----------- " + "\n";
+                    for (int i = 0; i < i1; i++)
+                    {
+                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + "\t " + ((String[]) Intermedio.ta1.get(i))[1] + "\t " + ((String[]) Intermedio.ta1.get(i))[2] + "\t" + ((String[]) Intermedio.ta1.get(i))[3] + "\n";// "\t" + ((String[]) Intermedio.ta1.get(i))[4]+ "\n";
+                    }
+                    String leo = "";
+                    for (int i = 0; i < parametros.size(); i++)
+                    {
+                        leo += ((String[]) parametros.get(i))[0] + " " + ((String[]) parametros.get(i))[1] + " " + ((String[]) parametros.get(i))[2] + " " + ((String[]) parametros.get(i))[3] + "\n ";
 
+                    }
+
+                    jTextArea2.setText(jTextArea2.getText() + textotabla + leo);
+
+                }
+            } else
+            {
+                tokens = null;
+                valores = null;
+
+            }
+        } else
+        {
+
+            tokens = null;
+            valores = null;
+
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
+    {//GEN-HEADEREND:event_jButton7ActionPerformed
+
+        parametros = new ArrayList();
+        Matriz claseMa = new Matriz();
+        String[] tabla = claseMa.crea(jTextArea1);
+        modelo = new DefaultTableModel(null, encabe);
+        jTable1.setModel(modelo);
+        if (tabla != null)
+        {
+            String t[][] = llenar(tabla);
+            t = claseMa.token(t);
+            if (t != null)
+            {
+                t = claseMa.a(t);
+                String r[][] = SeparaToken.cadena(t);
+                tokens = r[0];
+                valores = r[1];
+                modelo = new DefaultTableModel(t, encabe);
+                jTable1.setModel(modelo);
+                modelo1 = new DefaultTableModel(null, encabe1);
+                jTable2.setModel(modelo1);
+                if (tokens != null)
+                {
+                    ArrayList tab = new ArrayList();
+                    String a = "";
+                    Object resul[] =
+                    {
+                        "", 0
+                    };
+                    CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a, resul);
+                    a = (String) resul[0];
+                    //i = (int) resul[1];
+                    CodigoIntermedio.Intermedio.etiqueta = 0;
+                    TablaTemporales.temporal = 0;
+                    System.out.println(a);
+                    jTextArea2.setText("");
+                    jTextArea2.setText(a + "\n");
+                    int i1 = Intermedio.ta1.size();
+                    String textotabla = "----------- " + "\n";
+                    for (int i = 0; i < i1; i++)
+                    {
+                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + "\t " + ((String[]) Intermedio.ta1.get(i))[1] + "\t " + ((String[]) Intermedio.ta1.get(i))[2] + "\t" + ((String[]) Intermedio.ta1.get(i))[3] + "\n";// "\t" + ((String[]) Intermedio.ta1.get(i))[4]+ "\n";
+                    }
+                    String leo = "";
+                    for (int i = 0; i < parametros.size(); i++)
+                    {
+                        leo += ((String[]) parametros.get(i))[0] + " " + ((String[]) parametros.get(i))[1] + " " + ((String[]) parametros.get(i))[2] + " " + ((String[]) parametros.get(i))[3] + "\n ";
+
+                    }
+
+                    jTextArea2.setText(jTextArea2.getText() + textotabla + leo);
+
+                }
+            } else
+            {
+                tokens = null;
+                valores = null;
+
+            }
+        } else
+        {
+
+            tokens = null;
+            valores = null;
+
+        }
+        String textotabla = "----------- " + "\n";
+        ArrayList codigo = new ArrayList();
+        asignabloques(Intermedio.ta1);
+        for (int i = 0; i < Intermedio.ta1.size(); i++)
+        {
+            textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + "\t " + ((String[]) Intermedio.ta1.get(i))[1] + "\t " + ((String[]) Intermedio.ta1.get(i))[2] + "\t" + ((String[]) Intermedio.ta1.get(i))[3] + "\t" + ((String[]) Intermedio.ta1.get(i))[4] + "\n";
+        }
+        int a = 0;
+
+        do
+        {
+            if (((String[]) Intermedio.ta1.get(a))[4].trim().equals("1"))
+            {
+                ArrayList bebe = new ArrayList();
+                do
+                {
+                    bebe.add(Intermedio.ta1.get(a));
+                    a++;
+
+                    if (a >= Intermedio.ta1.size())
+                    {
+                        break;
+                    }
+                    if (((String[]) Intermedio.ta1.get(a))[4] != null)
+                    {
+                        break;
+
+                    }
+
+                } while (true);
+
+                codigo.add(bebe);
+            }
+
+            if (a >= Intermedio.ta1.size())
+            {
+                break;
+            }
+
+        } while (true);
+        for (int i = 0; i < codigo.size(); i++)
+        {
+            ArrayList coco = (ArrayList) codigo.get(i);
+            System.out.println("-----------------------");
+            for (int j = 0; j < coco.size(); j++)
+            {
+                System.out.println(((String[]) coco.get(j))[0] + "\t" + ((String[]) coco.get(j))[1] + "\t" + ((String[]) coco.get(j))[2] + "\t" + ((String[]) coco.get(j))[3] + "\t" + ((String[]) coco.get(j))[4] + "\n");
+
+            }
+
+        }
+
+        ArrayList codigooptimo = new ArrayList();
+        for (int i = 0; i < codigo.size(); i++)
+        {
+            codigooptimo.add(Optimizar((ArrayList) codigo.get(i)));
+        }
+        ArrayList co = new ArrayList();
+
+        for (int i = 0; i < codigooptimo.size(); i++)
+        {
+            ArrayList aaa = (ArrayList) codigooptimo.get(i);
+            for (int j = 0; j < aaa.size(); j++)
+            {
+
+                co.add(aaa.get(j));
+
+            }
+
+        }
+        String opti = "";
+        // co = Bloques.limpiar(co);
+        //co = Bloques.limpiar(co);
+        for (int i = 0; i < co.size(); i++)
+        {
+            opti += (((String[]) co.get(i))[0] + "\t" + ((String[]) co.get(i))[1] + "\t" + ((String[]) co.get(i))[2] + "\t" + ((String[]) co.get(i))[3] + "\t" +/* ((String[]) co.get(i))[4]+*/ "\n");
+        }
+
+        /* 
+        for (int i = 0; i < codigooptimo.size(); i++)
+        {
+            
+            ArrayList aaa=(ArrayList) codigooptimo.get(i);
+            for (int j = 0; j < aaa.size(); j++)
+            {
+               opti+= ((String[])aaa.get(j))[0]+"\t"+ ((String[])aaa.get(j))[1]+"\t"+ ((String[])aaa.get(j))[2]+ "\t"+((String[])aaa.get(j))[3]+ "\t"+((String[])aaa.get(j))[4]+"\n";
+              
+            }
+            
+
+        }
+         */
+        jTin.setText(opti);
+
+        //jTin.setText(textotabla);
+        //  Intermedio.ta1;
+
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton8ActionPerformed
+    {//GEN-HEADEREND:event_jButton8ActionPerformed
+        parametros = new ArrayList();
         Matriz claseMa = new Matriz();
         String[] tabla = claseMa.crea(jTextArea1);
         modelo = new DefaultTableModel(null, encabe);
@@ -609,68 +860,6 @@ public class Interfaz2 extends javax.swing.JFrame
             valores = null;
 
         }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton7ActionPerformed
-    {//GEN-HEADEREND:event_jButton7ActionPerformed
-    Matriz claseMa = new Matriz();
-        String[] tabla = claseMa.crea(jTextArea1);
-        modelo = new DefaultTableModel(null, encabe);
-        jTable1.setModel(modelo);
-        if (tabla != null)
-        {
-            String t[][] = llenar(tabla);
-            t = claseMa.token(t);
-            if (t != null)
-            {
-                t = claseMa.a(t);
-                String r[][] = SeparaToken.cadena(t);
-                tokens = r[0];
-                valores = r[1];
-                modelo = new DefaultTableModel(t, encabe);
-                jTable1.setModel(modelo);
-                modelo1 = new DefaultTableModel(null, encabe1);
-                jTable2.setModel(modelo1);
-                if (tokens != null)
-                {
-                    ArrayList tab = new ArrayList();
-                    String a = "";
-                    Object resul[] =
-                    {
-                        "", 0
-                    };
-                    CodigoIntermedio.Intermedio.creacodigo(valores, tokens, tab, 0, a, resul);
-                    a = (String) resul[0];
-                    //i = (int) resul[1];
-                    CodigoIntermedio.Intermedio.etiqueta = 0;
-                    TablaTemporales.temporal = 0;
-                    System.out.println(a);
-                    jTextArea2.setText("");
-                    jTextArea2.setText(a + "\n");
-                    int i1 = Intermedio.ta1.size();
-                    String textotabla = "----------- " + "\n";
-                    for (int i = 0; i < i1; i++)
-                    {
-                        textotabla += (((String[]) Intermedio.ta1.get(i))[0]) + "\t " + ((String[]) Intermedio.ta1.get(i))[1] + "\t " + ((String[]) Intermedio.ta1.get(i))[2] + "\t" + ((String[]) Intermedio.ta1.get(i))[3] + "\n";// "\t" + ((String[]) Intermedio.ta1.get(i))[4]+ "\n";
-                    }
-
-                    jTextArea2.setText(jTextArea2.getText() + textotabla);
-
-                }
-            } else
-            {
-                tokens = null;
-                valores = null;
-
-            }
-        } else
-        {
-
-            tokens = null;
-            valores = null;
-
-        } 
         String textotabla = "----------- " + "\n";
         ArrayList codigo = new ArrayList();
         asignabloques(Intermedio.ta1);
@@ -713,43 +902,45 @@ public class Interfaz2 extends javax.swing.JFrame
         } while (true);
         for (int i = 0; i < codigo.size(); i++)
         {
-            ArrayList coco=(ArrayList) codigo.get(i);
+            ArrayList coco = (ArrayList) codigo.get(i);
             System.out.println("-----------------------");
-            for (int j = 0; j <coco.size(); j++)
+            for (int j = 0; j < coco.size(); j++)
             {
-                System.out.println(((String[])coco.get(j))[0]+"\t"+((String[])coco.get(j))[1]+"\t"+((String[])coco.get(j))[2]+"\t"+((String[])coco.get(j))[3]+"\t"+((String[])coco.get(j))[4]+"\n");
-                
-                
+                System.out.println(((String[]) coco.get(j))[0] + "\t" + ((String[]) coco.get(j))[1] + "\t" + ((String[]) coco.get(j))[2] + "\t" + ((String[]) coco.get(j))[3] + "\t" +/*((String[])coco.get(j))[4]+*/ "\n");
+
             }
-            
+
         }
-        
+
         ArrayList codigooptimo = new ArrayList();
         for (int i = 0; i < codigo.size(); i++)
         {
             codigooptimo.add(Optimizar((ArrayList) codigo.get(i)));
         }
-        ArrayList co=new ArrayList();
-        
+        ArrayList co = new ArrayList();
+
         for (int i = 0; i < codigooptimo.size(); i++)
         {
-            ArrayList aaa=(ArrayList) codigooptimo.get(i);
+            ArrayList aaa = (ArrayList) codigooptimo.get(i);
             for (int j = 0; j < aaa.size(); j++)
             {
-                
+
                 co.add(aaa.get(j));
-                
+
             }
-            
-            
+
         }
-         String opti = "";
-        co=Bloques.limpiar(co);
-       for (int i = 0; i < co.size(); i++) {
-                      opti+=(((String[]) co.get(i))[0] + "\t" + ((String[]) co.get(i))[1] + "\t" + ((String[]) co.get(i))[2] + "\t" + ((String[]) co.get(i))[3] + "\t" + ((String[]) co.get(i))[4]+"\n");
-                    }
-       
-       /* 
+        String opti = "";
+        //co = Bloques.limpiar(co);
+        // co = Bloques.limpiar(co);
+        for (int i = 0; i < co.size(); i++)
+        {
+            opti += (((String[]) co.get(i))[0] + "\t" + ((String[]) co.get(i))[1] + "\t" + ((String[]) co.get(i))[2] + "\t" + ((String[]) co.get(i))[3] + "\t" + /*((String[]) co.get(i))[4]+*/ "\n");
+        }
+
+        String ensambla = Ensamblador.ensamblador(co);
+
+        /* 
         for (int i = 0; i < codigooptimo.size(); i++)
         {
             
@@ -762,14 +953,14 @@ public class Interfaz2 extends javax.swing.JFrame
             
 
         }
-*/
-        jTextArea3.setText(opti);
-
-        jTin.setText(textotabla);
+         */
+        jTin.setText(opti);
+        ensamblador.setText(ensambla);
+        //jTin.setText(textotabla);
         //  Intermedio.ta1;
 
-
-    }//GEN-LAST:event_jButton7ActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     public String[][] llenar(String t[])
     {
@@ -851,6 +1042,7 @@ public class Interfaz2 extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea ensamblador;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -858,6 +1050,7 @@ public class Interfaz2 extends javax.swing.JFrame
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -880,7 +1073,6 @@ public class Interfaz2 extends javax.swing.JFrame
     private javax.swing.JTable jTable6;
     public static javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTin;
     // End of variables declaration//GEN-END:variables
 }
